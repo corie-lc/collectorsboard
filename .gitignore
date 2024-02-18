@@ -1,6 +1,5 @@
 __pycache__/
 flask_session/
-helpers/sens.py
 .idea/collec22.iml
 venv/
 /flask_session

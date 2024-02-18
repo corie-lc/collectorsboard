@@ -8,16 +8,16 @@ import boto3
 from botocore.exceptions import ClientError
 import os
 
-from helpers import accounts, sens
+from helpers import accounts, sensitive
 
 from cachelib import file
 
 def get_database():
     return mysql.connector.connect(
-        host=sens.get_server_name(),
+        host=sensitive.get_server_name(),
         # localhost or 192.168.0.26 for remote in home
         user="doadmin",
-        password=sens.get_server_password(),
+        password=sensitive.get_server_password(),
         database="collec",
         port=25060
     )
@@ -29,14 +29,14 @@ import io
 
 def upload_file(file_name, actual_file, object_name=None):
     """Upload a file to an S3 bucket"""
-    ACCESS_ID = sens.get_access_id_server()
-    SECRET_KEY = sens.get_secret_key()
+    ACCESS_ID = sensitive.get_access_id_server()
+    SECRET_KEY = sensitive.get_secret_key()
 
     # Initiate session
     session = Session()
     client = session.client('s3',
                             region_name='nyc3',
-                            endpoint_url=sens.get_photo_server_name(),
+                            endpoint_url=sensitive.get_photo_server_name(),
                             aws_access_key_id=ACCESS_ID,
                             aws_secret_access_key=SECRET_KEY)
 
