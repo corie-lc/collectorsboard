@@ -1,0 +1,12 @@
+__pycache__/
+flask_session/
+helpers/sens.py
+.idea/collec22.iml
+venv/
+/flask_session
+/__pycache__
+
+helpers/__pycache__/
+helpers/__pycache__/
+helpers/__pycache__/collections.cpython-310.pyc
+helpers/__pycache__/collections.cpython-310.pyc

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKDD8KZG8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKDD8KZG8F');
+</script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>CB | {{ para1 }}</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='search.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='scrollingSystems.js') }}"></script>
+    <script src="{{ url_for('static',filename='comments.js') }}"></script>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+      $(document).on('submit','#todo-form',function(e)
+                     {
+        e.preventDefault();
+        $.ajax({
+          type:'POST',
+          url:'/follow_collection_button',
+          data:{
+            todo:$("#todo").val()
+          },
+          success:function()
+          {
+            
+          }
+        })
+      });
+
+      function follow_community(username, community){
+       $.ajax({
+            type: "POST",
+            dataType: "json",
+            url: "/follow_community",
+            contentType: 'application/json; charset=utf-8',
+            data: JSON.stringify({ username: username, community: community  }),
+            success: function(data) {
+                if(data === "unfollow"){
+                    document.getElementById("follow_community_button_" + community).innerText = "Subscribe";
+                    document.getElementById("follow_community_button_" + community).setAttribute("class", "btn btn-secondary")
+                } else{
+                    document.getElementById("follow_community_button_" + community).innerText = "Unsubscribe";
+                    document.getElementById("follow_community_button_" + community).setAttribute("class", "btn btn-primary")
+                }
+            }
+
+
+        });
+
+}
+    </script>
+
+    <style>
+         body {
+        background-color: #2c3034;
+    }
+
+    .nav-link.active {
+    background-color: #2c3034 !important;
+        border: 0; !important
+    }
+
+    .nav-link:hover {
+    background-color: #2c3034 !important;
+        border: 0; !important
+    }
+
+    #myTab {
+        top:62px;
+        z-index:1
+
+    }
+
+    .tab-pane{
+        height: calc(100vh - 200px);
+        overflow-y:auto; width:100%;
+        scrollbar-width: none;
+    }
+
+    .tab-pane::-webkit-scrollbar {
+        display: none;
+    }
+    </style>
+
+</head>
+<body>
+
+  
+
+    
+  
+
+      
+      {% from 'macros.html' import navbar_block %}
+      {{ navbar_block() }}
+      
+
+      
+      
+        <div class="container">
+            <div class=" custom-class row mx-auto col-md-9 col-lg-6 align-items-center">
+                <div class="dropdown w-100 mb-3 mt-4">
+          <button class="btn btn-secondary dropdown-toggle bg-transparent w-50 float-start" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Filter: Posts
+          </button>
+              <ul class="dropdown-menu bg-dark w-100" aria-labelledby="dropdownMenuButton1">
+                    <li><button id="buttonForYouHome" class="btn btn-dark w-100 text-start" onclick="closeAll('#collapseForYou')" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForYou" aria-expanded="true" aria-controls="collapseForYou">
+                      Filter: Posts
+                    </button></li>
+
+                  <li><button id="buttonForYouCollections" class="btn btn-dark w-100 text-start" onclick="closeAll('#collapseForYouCollections')" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForYouCollections" aria-expanded="false" aria-controls="collapseForYouCollections">
+                    Filter: Collections
+                  </button></li>
+
+                    <li><button id="buttonForYouPopular" class="btn btn-dark w-100 text-start" onclick="closeAll('#collapseForYouPopular')" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForYouPopular" aria-expanded="false" aria-controls="collapseForYouPopular">
+                      Filter: Users
+                    </button></li>
+
+                  <li><button id="buttonForYouCommunities" class="btn btn-dark w-100 text-start" onclick="closeAll('#collapseForYouCommunities')" type="button" data-bs-toggle="collapse" data-bs-target="#collapseForYouCommunities" aria-expanded="false" aria-controls="collapseForYouCommunities">
+                    Filter: Communities
+                    </button></li>
+              </ul>
+            </div>
+            <p class="text-white ms-2">Results for <mark>"{{para1}}"</mark></p>
+
+
+                                <hr style="color: white; background-color: white"/>
+
+
+            <div class="collapse show tab-pane" id="collapseForYou">
+
+                          <div class="card card-body bg-transparent border-0 text-white">
+
+                                    <div  id="search_post_list">
+
+                                    </div>
+                                    <button value="{{ para1 }}" id="search-post-observer" class="btn btn-dark w-100 mt-4 mb-5" type="button" disabled>
+                                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                        Loading
+                                    </button>
+
+                          </div>
+                    </div>
+
+
+                    <div class="collapse tab-pane" id="collapseForYouCollections">
+                      <div class="card card-body bg-transparent border-0 text-white">
+                        
+                          {% for collection in get_collection_search(para1) %}
+
+                            {% from 'macros.html' import collection_card %}
+                            {{ collection_card(collection) }}
+
+
+                          {%endfor%}
+
+                          <button value="{{ para1 }}" id="search-post-observer" class="btn btn-dark w-100 mt-4 mb-5" type="button" disabled>
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Thats all
+                        </button>
+
+
+                      </div>
+                    </div>
+
+            <div class="collapse tab-pane" id="collapseForYouPopular">
+              <div class="card card-body  bg-transparent border-0 text-white">
+
+                        <div id="user_list">
+                            {% for item in get_users_search(para1) %}
+
+                                <div class="card mb-3 w-100 bg-dark text-white mt-2 p-2">
+                                  <div class="row g-0 bg-dark text-white">
+                                    <div class="col-md-4 bg-dark text-white">
+                                      <img style="width: 75px;" class="rounded-circle shadow-4-strong" alt="avatar2" src='{{ get_user_avatar(item[0]) }}'>
+                                    </div>
+                                    <div class="col-md-8 bg-dark text-white">
+                                      <div class="card-body bg-dark text-white">
+                                          <a class="card-title mb-2 text-muted text-white" href="/viewuser/{{item[0]}}">{{ item[0] }}</a>
+                                        <p class="card-text bg-dark text-white">{{ item[3] }}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+
+                        <button id="observer_collections" class="btn btn-dark w-100 mt-4 mb-5" type="button" disabled>
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            No More 
+                        </button>
+              </div>
+            </div>
+
+            <div class="collapse tab-pane" id="collapseForYouCommunities">
+                  <div class="card card-body  bg-transparent border-0 text-white">
+
+                            <div id="community_list">
+                                {% for community_name in get_community_search(para1) %}
+
+                                    <div class="card text-center mb-3 bg-dark" style="margin-top: 30px; margin-bottom: 30px;">
+                                        <div class="card-header bg-dark text-white" id="community_name">
+                                              {{ community_name }}
+                                          </div>
+                                          <div class="card-body text-white">
+                                            <h5 class="card-title text-white"><a class="text-muted text-white" href="/community/{{community_name}}">{{ community_name }}</a> </h5>
+                                            <p class="card-text text-white">Community for {{ community_name }} Collectors!</p>
+
+                                              {% if is_following_community(session['username'], community_name) == True %}
+                                                <button id="follow_community_button_{{ community_name }}" class="btn btn-primary" onclick="follow_community('{{ session['username'] }}', '{{ community_name }}')">Unsubscribe</button>
+                                            {% else %}
+                                                <button id="follow_community_button_{{ community_name }}" class="btn btn-secondary" onclick="follow_community('{{ session['username'] }}', '{{ community_name }}')">Subscribe</button>
+                                            {% endif %}
+
+
+                                          </div>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+
+                            <button id="test" class="btn btn-dark w-100 mt-4 mb-5" type="button" disabled>
+                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                Loading
+                            </button>
+                  </div>
+                </div>
+
+                      <!-- UP IS POSTING, DOWN IS POSTS-->
+        </div>
+      </div>
+
+
+</body>
+</html>

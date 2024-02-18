@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKDD8KZG8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKDD8KZG8F');
+</script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>CB | {{get_collection_byid(para1)[0]}}</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+
+      <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+      <script src="{{ url_for('static',filename='bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
+
+
+
+    <script src="{{ url_for('static',filename='post_block.js') }}"></script>
+    <script src="{{ url_for('static',filename='collectionview_guest.js') }}"></script>
+    <script src="{{ url_for('static',filename='comments.js') }}"></script>
+
+    
+    <script>
+      $(document).ready(function() {
+        $('.js-example-basic-single').select2();
+    });
+    </script>
+
+
+    <style>
+         body {
+        background-color: #2c3034;
+    }
+
+    .nav-link.active {
+    background-color: #2c3034 !important;
+        border: 0 !important
+    }
+
+    .nav-link:hover {
+    background-color: #2c3034 !important;
+        border: 0 !important
+    }
+
+    #myTab {
+        top:62px;
+        z-index:1
+
+    }
+
+    .select2 .select2-selection__rendered {  background-color: transparent !important; color:white !important;  }
+        
+        
+        .select2-results { background-color: #343a40 !important; color:white !important;}
+        
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+          background-color: #F0F1F2;
+          color: #393A3B; 
+        }
+        
+        
+        .select2-search--dropdown{
+          background-color: #343a40 !important;
+          color:white;
+        }
+        
+        .select2-search__field{
+          background-color: #343a40 !important;
+          color:white !important;
+        }
+        
+        
+        
+        
+        .select2-selection, .select2-selection--single{
+          background-color: transparent !important;
+          margin-top: 20px !important; margin-bottom: 20px !important;
+          color:white !important;
+        }
+    </style>
+
+</head>
+<body>
+
+    
+  
+
+  {% from 'macros.html' import navbar_block %}
+  {{ navbar_block() }}
+
+
+
+      
+      
+        <div class="container">
+    <div class=" custom-class row mx-auto col-x col-md-8 col-lg-5 align-items-center">
+
+          <button class="btn btn-dark w-100 mt-4 mb-5" type="button">
+            You will have limited access to this as you are not signed in. Please <a href="/index">sign in!</a>
+          </button>
+
+              <div class="card text-center bg-transparent border-0" style="margin-top: 30px; margin-bottom: 30px;">
+                <div id="header" class="card-header bg-dark text-white w-100">
+                  <a style="text-decoration: underline; color: white" href="/viewuser/{{get_collection_byid(para1)[3]}}">{{get_collection_byid(para1)[3]}} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+                </svg></a>
+                     | {{get_collection_byid(para1)[0]}}
+                </div>
+                <div class="card-body bg-dark text-white">
+                  <img style="width: 86px;" class="rounded-circle shadow-4-strong" alt="avatar2" src='{{ get_user_avatar(get_collection_byid(para1)[3]) }}' />
+                  <P id="info">{{get_collection_byid(para1)[4]}}</P>
+                    <span id="community_id" class="badge bg-primary"><a class="text-white text-decoration-none" href="/community/{{get_collection_byid(para1)[5]}}">{{get_collection_byid(para1)[5]}}</a></span>
+                    {% if get_collection_byid(para1)[6] == 0 or get_collection_byid(para1)[6] == "0" or get_collection_byid(para1)[6] == None%}
+                    <span id="value_id" class="badge bg-danger">$0</span>
+                    {% elif get_collection_byid(para1)[6] != None %}
+                      <span id="value_id" class="badge bg-danger">${{get_collection_byid(para1)[6]}}</span>
+                      {% endif %}
+                    
+
+                </div>
+                  {% if get_collection_byid(para1)[3] == session['username']%}
+
+              <button class="btn btn-primary w-100 border-0 border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleCollection" aria-expanded="false" aria-controls="collapseExampleCollection">
+                Edit Collection
+              </button>
+                    <div class="collapse" id="collapseExampleCollection">
+                      <div class="card card-body bg-dark text-white">
+                        <label for="name_input" class="form-label">Collection Name</label>
+                          <input id="name_input" class="form-control bg-dark text-white" type="text" placeholder="{{get_collection_byid(para1)[0]}}" value="{{get_collection_byid(para1)[0]}}">
+
+                          <label for="desc_input" class="form-label">Collection Description</label>
+                          <input id="desc_input" class="form-control bg-dark text-white" type="text" placeholder="{{get_collection_byid(para1)[4]}}" value="{{get_collection_byid(para1)[4]}}">
+
+                          <label for="value_input" class="form-label">Collection Value</label>
+
+                          <div class="btn-group" role="group" aria-label="Basic example">
+                            <input id="value_input" class="form-control bg-dark text-white" type="text" placeholder="{{get_collection_byid(para1)[6]}}" value="{{get_collection_byid(para1)[6]}}">
+                            <button type="button" class="btn btn-primary w-25" onclick="autoValue('{{para1}}')" >Total Up Collection</button>
+                          </div>
+
+                          <select class="js-example-basic-single" style="margin-top:20px; background-color: #343a40 !important;" name="state">
+                            <option selected="selected"> {{get_collection_byid(para1)[5]}} </option>
+
+                            {% set keys = get_all_cat_new(session['username']) %}
+
+                            {% for cat_key in keys %}
+
+                              <optgroup label="{{cat_key}}"></optgroup>
+
+                              {% for item in keys.get(cat_key) %}
+
+                                  <option>{{item}}</option>
+
+                              {% endfor %}
+
+                            {%endfor%}
+            
+            
+              </select>
+                          </select>
+  
+                          
+                          <button class="btn btn-primary" onclick='editCollection("{{para1}}")'>Update</button>
+
+                      </div>
+                    </div>
+            {% endif %}
+                </div>
+
+
+
+
+
+                <div id="post_list">
+
+                  
+                  <form action="/searchq_collection/{{para1}}" method="POST" class="d-flex">
+                    <input name="search_input_collection" class="form-control me-2" type="search" placeholder="Please sign in to search collection" aria-label="Search" disabled>
+                    <button type="submit" class="btn btn-outline-success" type="submit" disabled>Search</button>
+                  </form>
+
+                  <div class="card mt-3 mb-3 bg-dark text-white">
+                    <div class="card-body" >
+                      <h6 class="card-subtitle mb-2 text-muted" style="height: 30px;">Sponsored Content, sorry :(</h6>
+                      <div id="ad-body" class="card-content col d-flex justify-content-center">
+                        <!--
+                        <script async="async" data-cfasync="false" src="//pl22464107.profitablegatecpm.com/70dc149ec489e883ffe0c36bd73d05d0/invoke.js"></script>
+                            <div id="container-70dc149ec489e883ffe0c36bd73d05d0"></div>
+                        -->
+                      </div>
+                    </div>
+                </div>
+
+               
+                  
+                  </div>
+
+                  <button id="observer" class="btn btn-dark w-100 mt-4 mb-5" type="button" disabled>
+                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                    Loading
+                  </button>
+
+
+            </div>
+
+
+</body>
+</html>

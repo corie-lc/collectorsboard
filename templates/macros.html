@@ -1,0 +1,1938 @@
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+{% macro edit_post(post) %}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+
+
+<script>
+
+  
+
+</script>
+
+<script src="{{ url_for('static',filename='post_block.js') }}"></script>
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+
+
+
+
+<hr/>
+
+<style>
+  .badge-dropdown::placeholder {
+      color: white !important;
+    opacity: 1; /* Firefox */
+  }
+
+  .badge-dropdown::-ms-input-placeholder { /* Edge 12 -18 */
+    background-color: transparent !important;
+  }
+
+  .badge-dropdown:hover {
+    background-color: transparent !important;
+    text-decoration: none !important;
+    background-color: transparent !important;
+    }
+
+  .badge-group-input::placeholder{
+    color: white !important;                
+  }
+
+
+</style>
+
+
+<div class="container w-100 mt-1">
+  <div class="row">
+
+
+    
+
+    
+    <div class="btn-group bg-dark w-100">
+          <a  class="btn btn-secondary dropdown-toggle w-100 bg-primary" href="#" role="button" id="dropdownMenuClickableInside" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+            Edit Info
+          </a>
+
+          <ul class="dropdown-menu w-100 p-3" style="background-color: #2c3034 !important" aria-labelledby="dropdownMenuClickableInside">
+
+              <li class="dropdown-item w-100 badge-dropdown">
+                  <input name="entry-off-name" class="bg-primary form-control badge-group" style="border-width: 0;"  value="{{ post[9] }}" placeholder="Name"  id="edit-name-{{post[2]}}"/>
+              </li>
+              <li class="dropdown-item w-100 badge-dropdown">
+                  <input name="entry-origin-country" class=" bg-secondary form-control badge-group" value="{{ post[10] }}" style="border-width: 0;" placeholder="Country" id="edit-country-{{post[2]}}">
+              </li>
+              <li class="dropdown-item w-100 badge-dropdown">
+                  <input name="entry-date" class=" bg-success form-control badge-group" value="{{ post[11] }}" style="border-width: 0;" placeholder="DOB" id="edit-date-{{post[2]}}">
+              </li>
+              <li class="dropdown-item w-100 badge-dropdown">
+                  <input name="entry-value" class=" bg-danger form-control badge-group" value="{{ post[12] }}" style="border-width: 0;" placeholder="Value" id="edit-value-{{post[2]}}">
+              </li>
+              <li class="dropdown-item w-100 badge-dropdown">
+                <button type="button" class="btn btn-primary form-control" onclick='getMarketValueEbayEdit("{{post[2]}}")'>Get Market Value</button>
+            </li>
+          </ul>
+        </div>
+
+
+
+
+
+          </br>
+            <div class="form-group p-2" class="create-post-forms">
+              <textarea class="form-control bg-dark text-white" id="edit-details-{{ post[2] }}"  rows="3" placeholder="Details..." name="post-details">{{ post[5] }}</textarea>
+            </div>
+
+
+
+
+
+
+      <button  onclick='editPost("{{post[2]}}", "communitySelectorForEditPost")' class="btn-primary w-50 form-control rounded-0">Update Post</button>
+      <button  onclick='closeEditPost("{{post[2]}}", "communitySelectorForEditPost")' class="btn-secondary w-50 form-control rounded-0">Cancel</button>
+
+  <hr/>
+
+    </div>
+
+  </div>
+
+
+
+
+  <hr/>
+
+
+
+
+{%endmacro%}
+
+
+{% macro comment_block(post, type) %}
+
+    {% set exampleModal = "exampleModal" + post[2] %}
+    {% set exampleModalLabel = "exampleModalLabel" + post[2] %}
+    {% set comment_list = "comment_list" + post[2] %}
+    {% set comment_input = "comment_input" + post[2] %}
+    {% set post_comment_button = "post_comment_button" + post[2] %}
+    {% set comment_loader = "comment_loader" + post[2] %}
+
+    {% if type == 1 %}
+      {% set exampleModal = "exampleModal1" + post[2] %}
+      {% set exampleModalLabel = "exampleModalLabel1" + post[2] %}
+      {% set comment_list = "comment_list1" + post[2] %}
+      {% set comment_input = "comment_input1" + post[2] %}
+      {% set post_comment_button = "post_comment_button1" + post[2] %}
+      {% set comment_loader = "comment_loader1" + post[2] %}
+
+    {% endif %}
+
+    {% if type == 2 %}
+      {% set exampleModal = "exampleModal2" + post[2] %}
+      {% set exampleModalLabel = "exampleModalLabel2" + post[2] %}
+      {% set comment_list = "comment_list2" + post[2] %}
+      {% set comment_input = "comment_input2" + post[2] %}
+      {% set post_comment_button = "post_comment_button2" + post[2] %}
+      {% set comment_loader = "comment_loader2" + post[2] %}
+
+    {% endif %}
+
+
+
+
+
+
+
+
+    <script src="{{ url_for('static',filename='comments.js') }}"></script>
+    <style>
+        #{{comment_list}}{
+            flex-direction: column-reverse
+        }
+    </style>
+
+    <script>
+
+      var myModalEl = document.getElementById('{{exampleModalLabel}}')
+      myModalEl.addEventListener('hidden.bs.modal', function (event) {
+        document.getElementById("{{comment_loader}}").style.display = "inline-block"
+      })
+
+      var myModalEl1 = document.getElementById('{{exampleModal}}')
+      myModalEl1.addEventListener('hidden.bs.modal', function (event) {
+        document.getElementById("{{comment_loader}}").style.display = "inline-block"
+      })
+
+
+    </script>
+
+
+<div class="modal fade" id="{{exampleModal}}" tabindex="2" aria-labelledby="{{exampleModalLabel}}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable bg-dark text-white">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title bg-dark text-white" id="{{exampleModalLabel}}">{{post[4]}}'s post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id="{{comment_list}}" class="modal-body">
+
+
+        
+
+
+
+      </div>
+
+
+      <div class="card mt-1 ms-4 me-4 mb-3" style="background-color: #2c3034" ><div class="card-body"> <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>  Looking For Comments!</div></div>
+        
+
+
+      <div class="modal-footer">
+        
+        <div class="input-group">
+          <input name="{{comment_input}}" id="{{comment_input}}"  type="text" class="form-control bg-dark text-white" placeholder="Your comment" aria-label="comment" aria-describedby="button-addon2">
+          <button id="{{post_comment_button}}" name="{{post_comment_button}}" value="{{post[2]}}"   class="btn btn-outline-secondary btn-dark" type="button" id="button-addon2"  onclick='expandInfo( "{{post[2]}}", "{{session['username']}}", "{{ type }}")'>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+            </svg>
+          </button>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endmacro%}
+
+{% macro comment_block1(post) %}
+<script src="{{ url_for('static',filename='comments.js') }}"></script>
+    <style>
+        #comment_list1{
+            flex-direction: column-reverse
+        }
+    </style>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable bg-dark">
+    <div class="modal-content  bg-dark text-white">
+      <div class="modal-header  bg-dark text-white">
+        <h5 class="modal-title  bg-dark text-white" id="exampleModalLabel1">{{post[4]}}'s post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id='comment_list1' class="modal-body">
+
+
+
+      </div>
+      <div class="modal-footer">
+        <div class="input-group">
+          <input name="comment_input" id="comment_input1"  type="text" class="form-control bg-dark text-white" placeholder="Your comment" aria-label="comment" aria-describedby="button-addon2">
+          <button id="post_comment_button1" name="post_comment_button" value="{{post[2]}}" id="button-interactions"  class="btn btn-outline-secondary btn-dark" type="button" id="button-addon2"  onclick='expandInfo( "{{post[2]}}", "{{session['username']}}", "1")'>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+            </svg>
+          </button>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endmacro%}
+
+
+{% macro comment_block2(post) %}
+<script src="{{ url_for('static',filename='comments.js') }}"></script>
+    <style>
+        #comment_list2{
+            flex-direction: column-reverse
+        }
+    </style>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable bg-dark">
+    <div class="modal-content  bg-dark text-white">
+      <div class="modal-header  bg-dark text-white">
+        <h5 class="modal-title  bg-dark text-white" id="exampleModalLabel2">{{post[4]}}'s post</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div id='comment_list2' class="modal-body">
+
+
+
+      </div>
+      <div class="modal-footer">
+        <div class="input-group">
+          <input name="comment_input" id="comment_input2"  type="text" class="form-control bg-dark text-white" placeholder="Your comment" aria-label="comment" aria-describedby="button-addon2">
+          <button id="post_comment_button2" name="post_comment_button" value="{{post[2]}}" id="button-interactions"  class="btn btn-outline-secondary btn-dark" type="button" id="button-addon2"  onclick='expandInfo( "{{post[2]}}", "{{session['username']}}", "2")'>
+
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send" viewBox="0 0 16 16">
+              <path d="M15.854.146a.5.5 0 0 1 .11.54l-5.819 14.547a.75.75 0 0 1-1.329.124l-3.178-4.995L.643 7.184a.75.75 0 0 1 .124-1.33L15.314.037a.5.5 0 0 1 .54.11ZM6.636 10.07l2.761 4.338L14.13 2.576 6.636 10.07Zm6.787-8.201L1.591 6.602l4.339 2.76 7.494-7.493Z"/>
+            </svg>
+          </button>
+
+
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endmacro%}
+
+
+
+{% macro post_block(post, post_type=0) %}
+
+
+
+
+
+<script src="{{ url_for('static',filename='post_block.js') }}"></script>
+    <style>
+    .tags-wall{
+        scrollbar-width: none;
+    }
+
+    .tags-wall::-webkit-scrollbar {
+        display: none;
+    }
+    </style>
+
+
+
+
+    {% set post_var = "div-post-" + post[2] %}
+    {% set post_fav = "favorite_post_" + post[2] %}
+    {% set post_like = "like_post_" + post[2] %}
+    {% set modal_name = "exampleModal" %}
+    {% set post_like_counter = "like_post_counter_" + post[2] %}
+
+    {% if post_type == 1 %}
+        {% set post_var = "div-post-1" + post[2] %}
+        {% set post_fav = "favorite_post1_" + post[2] %}
+        {% set post_like = "like_post1_" + post[2] %}
+        {% set post_like_counter = "like_post1_counter_" + post[2] %}
+        {% set modal_name = "exampleModal1" %}
+    {% endif %}
+
+    {% if post_type == 2 %}
+        {% set post_var = "div-post-2" + post[2] %}
+        {% set post_fav = "favorite_post2_" + post[2] %}
+        {% set post_like = "like_post2_" + post[2] %}
+        {% set post_like_counter = "like_post2_counter_" + post[2] %}
+        {% set modal_name = "exampleModal2" %}
+    {% endif %}
+
+
+
+    <div id="div-post" name="{{ post_var }}" value="{{post[2]}}" class="card mt-4 bg-dark">
+
+        <div class="card-header bg-dark text-white float-start" id="{{post[2]}}" value="{{post[2]}}">
+
+          <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+              <div class="container-fluid">
+                  <a id="post-community-{{ post[2] }}" class=" btn btn-dark mx-0" href="/community/{{post[1]}}">{{ post[1] }}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentPost_{{ post[2] }}" aria-controls="navbarSupportedContentPost_{{ post[2] }}" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContentPost_{{ post[2] }}">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        +/-
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDropdown">
+
+
+                         {% for collection in get_user_collections(session['username']) %}
+                            <li>
+                              {% if is_post_in_spec_collection(post[2], collection[1]) != False %}
+                                <button onclick='addToCollection( "{{collection[1]}}", "{{post[2]}}")' type="submit" value="added" id="add_to_collection_{{collection[1]}}_{{ post[2] }}" id="button-interactions" class="btn btn-primary w-100 rounded-0">{{collection[0]}}</button>
+                              {% else %}
+                              
+                                <button onclick='addToCollection( "{{collection[1]}}", "{{post[2]}}")' type="submit" value="unadded" id="add_to_collection_{{collection[1]}}_{{ post[2] }}" id="button-interactions" class="btn btn-dark w-100 rounded-0">{{collection[0]}}</button>
+                              {%endif%}
+                            </li>
+                          {%endfor%}
+                      </ul>
+                    </li>
+
+
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsername" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ post[4] }}
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownUsername">
+                         {% if post[4] == session['username'] %}
+                             <li><a class="dropdown-item" href="/profile">See {{ post[4] }}</a></li>
+                             <li><hr class="dropdown-divider"></li>
+                          {% else %}
+                             <li><a class="dropdown-item" href="/viewuser/{{post[4]}}">See {{ post[4] }}</a></li>
+                             <li><hr class="dropdown-divider"></li>
+                          {%endif%}
+
+
+
+
+
+
+
+                          {% if post[4] == session['username'] %}
+                            <form action="/profile" method="post" ><li><button name="current_delete_post" value="{{ post[2] }}" type='submit' class="dropdown-item" href="#">Delete</button></li></form>
+                                                              <li><hr class="dropdown-divider"></li>
+
+
+
+
+                            <button class="dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{post[2]}}" aria-expanded="false" aria-controls="collapseExample-{{post[2]}}">
+                              Edit
+                            </button>
+
+
+
+                          {%endif%}
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+          </nav>
+        </div>
+
+    <div class="collapse" id="collapseExample-{{post[2]}}">
+                              {{edit_post(post)}}
+                            </div>
+
+        <div id="div-post-subtext" >
+          <div  id="post-box-{{post[2]}}" class=" text-white mt-3 mb-3 ms-3">
+            <p1 id="post-subtext-{{post[2]}}"> {{post[5]}} </p1></br>
+            <p class="text-muted" style="font-size: 11px;">
+            {% if is_follow(session['username'], post[4]) %}
+            &#9642; Following 
+            {%endif%}
+
+            {% if is_following_community(session['username'], post[1]) %}
+              &#9642; Your Community </p>
+
+            {%endif%}
+
+            
+          </div>
+        </div>
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+
+              <!--
+
+              <button class="bg-transparent border-0" id="slideRight-{{ post[2] }}" type="button" onclick="goRight('{{ post[2] }}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                </svg>
+            </button>
+
+          -->
+                             
+
+            <div style="overflow-x: scroll" class="text-nowrap  w-100 tags-wall" id="tags-c-{{ post[2] }}">
+
+              
+
+              {% if post[9] != "no data" %}
+                <span id="badge1-{{post[2]}}" class="badge bg-primary ms-3">{{post[9]}}</span>
+               {% else %}
+                  <span style="display: none" id="badge1-{{post[2]}}" class="badge bg-primary ms-3">{{post[9]}}</span>
+              {% endif %}
+
+              {% if post[10] != "no data" %}
+                <span id="badge2-{{post[2]}}" class="badge bg-secondary">{{post[10]}}</span>
+              {% else %}
+                  <span style="display: none" id="badge2-{{post[2]}}" class="badge bg-secondary">{{post[10]}}</span>
+              {% endif %}
+
+              {% if post[11] != "no data" %}
+                  <span id="badge3-{{post[2]}}" class="badge bg-success">{{post[11]}}</span>
+
+                {% else %}
+                  <span style="display: none" id="badge3-{{post[2]}}" class="badge bg-success">{{post[11]}}</span>
+              {% endif %}
+
+              {% if post[12] != "no data" %}
+                  <span id="badge4-{{post[2]}}" class="badge bg-danger">${{post[12]}}</span>
+
+               {% else %}
+                  <span style="display: none" id="badge4-{{post[2]}}" class="badge bg-danger ">{{post[12]}}</span>
+              {% endif %}
+            </div>
+
+            <!--
+
+            <button class="bg-transparent border-0" id="slideLeft-{{ post[2] }}" type="button" onclick="goLeft('{{ post[2] }}')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+               <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+             </svg>
+                            
+
+
+            
+
+          </button>
+
+        -->
+
+      </div>
+
+
+
+
+
+      <div id="image-box-{{post[2]}}" class=" mb-2 mt-2 text-center">
+          <img width="60%" height="100%" onerror="this.onerror=null; this.style.display = 'none'; " src="https://photo-storage-collecdb.nyc3.cdn.digitaloceanspaces.com/post-photos/{{post[2]}}.jpg" alt="no photo" style="max-width: 100%;" />
+      </div>
+
+
+
+            <div id="div-interactions" class="btn-group">
+              {% if is_post_liked(session['username'], post[2]) == "liked" %}
+                <button id="{{ post_like }}" value="liked" class="btn btn-primary"  onclick='ajaxLikePost( "{{post[2]}}", "{{ post_type }}")'>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-through-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z"/>
+                  </svg>
+
+                   <p1 id="{{ post_like_counter }}">{{ post[13] }}</p1>
+
+
+                </button>
+
+              {% else %}
+                <button id="{{ post_like }}" value="not_liked" class="btn btn-dark"  onclick='ajaxLikePost( "{{post[2]}}", "{{ post_type }}")'>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-through-heart-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z"/>
+                  </svg>
+
+                <p1 id="{{ post_like_counter }}">{{ post[13] }}</p1>
+                </button>
+              {%endif%}
+
+              
+
+              {{comment_block(post, post_type)}}
+
+
+                {%set username = session['username'] %}
+
+                <button  class="btn btn-dark" onclick='launch_comment( "{{post[2]}}", "{{username}}", "{{ post_type }}")' >
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                  </svg>  {{get_post_comments(post[2])|length}}
+
+                </button>
+                <button id="button-interactions" class="btn btn-dark" disabled>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16">
+                      <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+                    </svg>
+
+                </button>
+
+             {% if is_post_favorited(session['username'], post[2]) != False %}
+
+            <button id="{{ post_fav }}" value="fav" onclick='ajaxFavoritePost( "{{post[2]}}", "{{ post_type }}")' class="btn btn-dark bg-primary">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+                  <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                  <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                </svg>
+            </button>
+
+            {%  else %}
+
+                 <button id="{{ post_fav }}" value="unfav" onclick='ajaxFavoritePost( "{{post[2]}}", "{{ post_type }}")' class="btn btn-dark">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+                  <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                  <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+                </svg>
+            </button>
+
+            {% endif %}
+
+        </div>
+
+      </div>
+
+{% endmacro %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% macro post_block_guest(post, post_type=0) %}
+
+
+
+
+
+<script src="{{ url_for('static',filename='post_block.js') }}"></script>
+    <style>
+    .tags-wall{
+        scrollbar-width: none;
+    }
+
+    .tags-wall::-webkit-scrollbar {
+        display: none;
+    }
+    </style>
+
+
+
+
+    {% set post_var = "div-post-" + post[2] %}
+    {% set post_fav = "favorite_post_" + post[2] %}
+    {% set post_like = "like_post_" + post[2] %}
+    {% set modal_name = "exampleModal" %}
+    {% set post_like_counter = "like_post_counter_" + post[2] %}
+
+    {% if post_type == 1 %}
+        {% set post_var = "div-post-1" + post[2] %}
+        {% set post_fav = "favorite_post1_" + post[2] %}
+        {% set post_like = "like_post1_" + post[2] %}
+        {% set post_like_counter = "like_post1_counter_" + post[2] %}
+        {% set modal_name = "exampleModal1" %}
+    {% endif %}
+
+    {% if post_type == 2 %}
+        {% set post_var = "div-post-2" + post[2] %}
+        {% set post_fav = "favorite_post2_" + post[2] %}
+        {% set post_like = "like_post2_" + post[2] %}
+        {% set post_like_counter = "like_post2_counter_" + post[2] %}
+        {% set modal_name = "exampleModal2" %}
+    {% endif %}
+
+
+
+    <div id="div-post" name="{{ post_var }}" value="{{post[2]}}" class="card mt-4 bg-dark">
+
+        <div class="card-header bg-dark text-white float-start" id="{{post[2]}}" value="{{post[2]}}">
+
+          <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+              <div class="container-fluid">
+                  <a id="post-community-{{ post[2] }}" class=" btn btn-dark mx-0" href="/community/{{post[1]}}">{{ post[1] }}</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContentPost_{{ post[2] }}" aria-controls="navbarSupportedContentPost_{{ post[2] }}" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContentPost_{{ post[2] }}">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                    
+
+
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownUsername" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ post[4] }}
+                      </a>
+                      <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdownUsername">
+                         {% if post[4] == 'guest_user' %}
+                             <li><a class="dropdown-item" href="/profile">See {{ post[4] }}</a></li>
+                             <li><hr class="dropdown-divider"></li>
+                          {% else %}
+                             <li><a class="dropdown-item" href="/viewuser/{{post[4]}}">See {{ post[4] }}</a></li>
+                             <li><hr class="dropdown-divider"></li>
+                          {%endif%}
+
+
+
+
+
+
+
+                          {% if post[4] == 'guest_user' %}
+                            <form action="/profile" method="post" ><li><button name="current_delete_post" value="{{ post[2] }}" type='submit' class="dropdown-item" href="#">Delete</button></li></form>
+                                                              <li><hr class="dropdown-divider"></li>
+
+
+
+
+                            <button class="dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample-{{post[2]}}" aria-expanded="false" aria-controls="collapseExample-{{post[2]}}">
+                              Edit
+                            </button>
+
+
+
+                          {%endif%}
+                      </ul>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+          </nav>
+        </div>
+
+    <div class="collapse" id="collapseExample-{{post[2]}}">
+                              {{edit_post(post)}}
+                            </div>
+
+        <div id="div-post-subtext" >
+          <div  id="post-box-{{post[2]}}" class=" text-white mt-3 mb-3 ms-3">
+            <p1 id="post-subtext-{{post[2]}}"> {{post[5]}} </p1></br>
+            <p class="text-muted" style="font-size: 11px;">
+            {% if is_follow('guest_user', post[4]) %}
+            &#9642; Following 
+            {%endif%}
+
+            {% if is_following_community('guest_user', post[1]) %}
+              &#9642; Your Community </p>
+
+            {%endif%}
+
+            
+          </div>
+        </div>
+
+            <div class="btn-group" role="group" aria-label="Basic example">
+
+              <!--
+
+              <button class="bg-transparent border-0" id="slideRight-{{ post[2] }}" type="button" onclick="goRight('{{ post[2] }}')">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-left-short" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5"/>
+                </svg>
+            </button>
+
+          -->
+                             
+
+            <div style="overflow-x: scroll" class="text-nowrap  w-100 tags-wall" id="tags-c-{{ post[2] }}">
+
+              
+
+              {% if post[9] != "no data" %}
+                <span id="badge1-{{post[2]}}" class="badge bg-primary ms-3">{{post[9]}}</span>
+               {% else %}
+                  <span style="display: none" id="badge1-{{post[2]}}" class="badge bg-primary ms-3">{{post[9]}}</span>
+              {% endif %}
+
+              {% if post[10] != "no data" %}
+                <span id="badge2-{{post[2]}}" class="badge bg-secondary">{{post[10]}}</span>
+              {% else %}
+                  <span style="display: none" id="badge2-{{post[2]}}" class="badge bg-secondary">{{post[10]}}</span>
+              {% endif %}
+
+              {% if post[11] != "no data" %}
+                  <span id="badge3-{{post[2]}}" class="badge bg-success">{{post[11]}}</span>
+
+                {% else %}
+                  <span style="display: none" id="badge3-{{post[2]}}" class="badge bg-success">{{post[11]}}</span>
+              {% endif %}
+
+              {% if post[12] != "no data" %}
+                  <span id="badge4-{{post[2]}}" class="badge bg-danger">${{post[12]}}</span>
+
+               {% else %}
+                  <span style="display: none" id="badge4-{{post[2]}}" class="badge bg-danger ">{{post[12]}}</span>
+              {% endif %}
+            </div>
+
+            <!--
+
+            <button class="bg-transparent border-0" id="slideLeft-{{ post[2] }}" type="button" onclick="goLeft('{{ post[2] }}')">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-right-short" viewBox="0 0 16 16">
+               <path fill-rule="evenodd" d="M4 8a.5.5 0 0 1 .5-.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5A.5.5 0 0 1 4 8"/>
+             </svg>
+                            
+
+
+            
+
+          </button>
+
+        -->
+
+      </div>
+
+
+
+
+
+      <div id="image-box-{{post[2]}}" class=" mb-2 mt-2 text-center">
+          <img width="60%" height="100%" onerror="this.onerror=null; this.style.display = 'none'; " src="https://photo-storage-collecdb.nyc3.cdn.digitaloceanspaces.com/post-photos/{{post[2]}}.jpg" alt="no photo" style="max-width: 100%;" />
+      </div>
+
+
+
+            <div id="div-interactions" class="btn-group">
+              <button id="{{ post_like }}" value="not_liked" class="btn btn-dark"  onclick='ajaxLikePost( "{{post[2]}}", "{{ post_type }}")' disabled>
+
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-through-heart-fill" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M2.854 15.854A.5.5 0 0 1 2 15.5V14H.5a.5.5 0 0 1-.354-.854l1.5-1.5A.5.5 0 0 1 2 11.5h1.793l3.103-3.104a.5.5 0 1 1 .708.708L4.5 12.207V14a.5.5 0 0 1-.146.354l-1.5 1.5ZM16 3.5a.5.5 0 0 1-.854.354L14 2.707l-1.006 1.006c.236.248.44.531.6.845.562 1.096.585 2.517-.213 4.092-.793 1.563-2.395 3.288-5.105 5.08L8 13.912l-.276-.182A23.825 23.825 0 0 1 5.8 12.323L8.31 9.81a1.5 1.5 0 0 0-2.122-2.122L3.657 10.22a8.827 8.827 0 0 1-1.039-1.57c-.798-1.576-.775-2.997-.213-4.093C3.426 2.565 6.18 1.809 8 3.233c1.25-.98 2.944-.928 4.212-.152L13.292 2 12.147.854A.5.5 0 0 1 12.5 0h3a.5.5 0 0 1 .5.5v3Z"/>
+                </svg>
+
+              <p1 id="{{ post_like_counter }}">{{ post[13] }}</p1>
+              </button>
+
+              
+
+              {{comment_block(post, post_type)}}
+
+
+                {%set username = 'guest_user' %}
+
+                <button  class="btn btn-dark" onclick='launch_comment( "{{post[2]}}", "{{username}}", "{{ post_type }}")' disabled>
+
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-dots" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+                    <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                  </svg>  {{get_post_comments(post[2])|length}}
+
+                </button>
+                <button id="button-interactions" class="btn btn-dark" disabled>
+
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-share-fill" viewBox="0 0 16 16"disabled>
+                      <path d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+                    </svg>
+
+                </button>
+
+                <button id="{{ post_fav }}" value="fav" onclick='ajaxFavoritePost( "{{post[2]}}", "{{ post_type }}")' class="btn btn-dark bg-dark"disabled>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmarks-fill" viewBox="0 0 16 16">
+                <path d="M2 4a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L7 13.101l-4.223 2.815A.5.5 0 0 1 2 15.5V4z"/>
+                <path d="M4.268 1A2 2 0 0 1 6 0h6a2 2 0 0 1 2 2v11.5a.5.5 0 0 1-.777.416L13 13.768V2a1 1 0 0 0-1-1H4.268z"/>
+              </svg>
+            </button>
+
+        </div>
+
+      </div>
+
+{% endmacro %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% macro navbar_block() %}
+
+
+
+{% set testing = 'it worked' %}
+
+<script>
+
+
+  function deleteNoti(noti_id){
+    document.getElementById("noti_" + noti_id).remove()
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "/delete_noti",
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({ noti_id: noti_id }),
+    });;
+  }
+
+  function saveCollection(){
+
+
+    let name = document.getElementById("collection-title").value
+    let desc = document.getElementById("collection-details").value
+    document.getElementById("icon_create_collection").style.display = "inline-block";
+
+
+    
+
+    
+
+
+
+
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "/make_collection",
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({name: name, desc: desc, community: $('#select2insidemodal').val()  }),
+      success: function(data) {
+        document.getElementById("collection-title").value = ""
+        document.getElementById("collection-details").value = ""
+        document.getElementById("collections_dropdown_navbar").insertAdjacentHTML('afterbegin', "<li><a class='dropdown-item' href='/collectionview/" + data + "''>" + name + "</a></li> " + 
+        "<li><hr class='dropdown-divider'></li>")
+        document.getElementById("icon_create_collection").style.display = "none";
+        $('#exampleModalCollection').modal('hide');
+
+      }
+    })
+
+    
+
+
+}
+
+  var intervalId = window.setInterval(function(){
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "/get_noti_count",
+      contentType: 'application/json; charset=utf-8',
+      success: function(data) {
+        document.getElementById("notification-count").innerHTML = data.length
+        document.getElementById("notification-count-outside").innerHTML = data.length
+        document.getElementById("notification-count-navbar").innerHTML = data.length
+
+
+        document.getElementById("updates-list").innerHTML = ""
+
+        var counter = 0
+
+        while (counter < data.length) { 
+          document.getElementById("updates-list").innerHTML += (
+            '<li id="noti_' + data[counter][4] + '" class="list-group-item bg-dark text-white mb-1 me-1">' + data[counter][3] + '</br> <a class="btn btn-primary me-1 btn-sm" href="/viewpost/' + data[counter][2].split(":")[1] + '"> View</a>') + 
+            '<button class="btn btn-primary btn-sm me-1" onclick="deleteNoti(' + data[counter][4] + ')">' +
+            '  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16"> ' +
+                '<path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>'
+            '  </svg> '
+           ' </button></li>'
+          document.getElementById("updates-list").innerHTML += '<hr class="dropdown-divider">'
+          counter += 1;
+      }
+      }
+    });;
+  }, 100000000000000000000);
+
+  $(document).ready(function() {
+    $("#select2insidemodal").select2({
+      dropdownParent: $("#exampleModalCollection"),
+      theme: "bootstrap-5"
+      
+    });
+  });
+
+
+
+
+  
+
+</script>
+
+    <div class="modal fade bg-dark text-white" id="exampleModalCollection" tabindex="-1" aria-labelledby="exampleModalCollection" aria-hidden="true">
+  <div class="modal-dialog bg-dark text-white">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title " id="exampleModalLabel">Create Collection</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-dark text-white">
+
+        <input type="text" class="form-control mt-4 bg-dark text-white" placeholder="Collection Name" id="collection-title" name="collection-title"/>
+        <input type="text" class="form-control mt-4 bg-dark text-white" placeholder="Collection Details" id="collection-details" name="collection-details"/>
+
+        <style>
+
+          .select2 .select2-selection__rendered {  background-color: transparent !important; color:white !important; }
+        
+        
+        .select2-results { background-color: #343a40 !important; color:white !important;}
+        
+        .select2-container--default .select2-results__option--highlighted[aria-selected] {
+          background-color: #F0F1F2;
+          color: #393A3B; 
+        }
+        
+        
+        .select2-search--dropdown{
+          background-color: #343a40 !important;
+          color:white;
+        }
+        
+        .select2-search__field{
+          background-color: #343a40 !important;
+          color:white !important;
+        }
+        
+        
+        
+        
+        .select2-selection, .select2-selection--single{
+          background-color: transparent !important;
+          color:white !important;
+        }
+        
+        
+        </style>
+        
+        
+        <div class="form-group align-content-center p-2 bg-dark text-white " class="create-post-forms">
+        
+          <script>
+            
+        
+            
+              
+        
+          </script>
+          
+          
+          <select id="select2insidemodal" class="js-example-basic bg-dark" style="background-color: #343a40 !important;"  name="post-community" >
+            {% set keys = get_all_cat_new(session['username']) %}
+
+                            {% for cat_key in keys %}
+
+                              <optgroup label="{{cat_key}}"></optgroup>
+
+                              {% for item in keys.get(cat_key) %}
+
+                                  <option>{{item}}</option>
+
+                              {% endfor %}
+
+                            {%endfor%}
+        
+        
+          </select>
+        
+        </div>
+
+
+
+        <div class="form-check form-switch mt-4 ">
+              <input name="visibility" class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
+              <label class="form-check-label" for="flexSwitchCheckChecked"> Public</label>
+            </div>
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary w-100" onclick='saveCollection()'>Finish
+          <span class="spinner-grow spinner-grow-sm" id="icon_create_collection" style="display: none" role="status" aria-hidden="true"></span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="navbar navbar-expand-lg mb-0 navbar-dark bg-dark sticky-top">
+  <div class="container-fluid justify-content-cent">
+    <a class="navbar-brand" href="/index">
+      
+      <img src="{{url_for('static', filename='brand/website-navbar.png')}}" alt="" width="100" height="31">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      
+      {% if session['logged_in'] == True %}
+      <span id="notification-count-navbar" class="badge bg-danger">{{   get_user_notis(session['username'])|length  }}</span>
+      {% endif %}
+
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          {% if session['logged_in'] == True %}
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            {{session['username']}} <span id="notification-count" class="badge bg-danger">
+
+              
+              {{   get_user_notis(session['username'])|length  }}
+            
+              
+            </span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+            <form action="/index" method="POST">
+              <li><button class="dropdown-item" name="logout-button" type="submit">Logout</button></li>
+              
+
+            </form>
+
+            <li><a class="dropdown-item" href="/profile">Your Profile</a></li>
+            <li><a class="dropdown-item button" data-bs-toggle="modal" href="#" data-bs-target="#modalNoti">Updates <span id="notification-count-outside" class="badge bg-danger">{{   get_user_notis(session['username'])|length  }}</span></a></li>
+
+          
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/about_info">About & Support</a></li>
+            <li><a class="dropdown-item" href="/privacypolicy">Privacy Policy</a></li>
+            <li><a class="dropdown-item" href="/membership">Membership Services</a></li>
+
+          </ul>
+        </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Communities
+                  </a>
+                  <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                    {% for item in get_followed_communties(session['username']) %}
+                        <li><a class="dropdown-item" href="/community/{{item}}">{{ item }}</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                      {% endfor %}
+                  </ul>
+                </li>
+
+              <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Collections
+                  </a>
+                  <ul style="overflow-y: auto; max-height: 500px;" id="collections_dropdown_navbar" class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDropdown">
+                    {% for item in get_user_collections(session['username']) %}
+                        <li><a class="dropdown-item" href="/collectionview/{{item[1]}}">{{ item[0] }}</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                      {% endfor %}
+                      <li><a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#exampleModalCollection">
+                          New
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+  <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"/>
+</svg>
+                      </a></li>
+
+                  </ul>
+                </li>
+
+
+
+          {% else %}
+
+          <style>
+            .logged-out-link{
+              text-decoration: none;
+
+            }
+            .logged-out-link:hover{
+              text-decoration: underline;
+
+
+            }
+
+
+          </style>
+
+          <li><a class="mt-4 me-3 text-white logged-out-link" href="/index">Sign up/Login</a></li>
+              
+          
+          <li><a class="mt-4 me-3 text-white logged-out-link"  href="/about_info">About & Support</a></li>
+          <li><a class="mt-4 me-3 text-white logged-out-link"  href="/privacypolicy">Privacy Policy</a></li>
+          <li><a class="mt-4 me-3 text-white logged-out-link"  href="/membership">Membership Services</a></li>
+
+          
+
+
+          {% endif %}
+      </ul>
+      <form action="/searchq" method="POST" class="d-flex">
+        <input name="search_input" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button type="submit" class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade bg-dark text-white" id="modalNoti" tabindex="-1" aria-labelledby="modal" aria-hidden="true">
+  <div class="modal-dialog bg-dark text-white">
+    <div class="modal-content bg-dark text-white">
+      <div class="modal-header bg-dark text-white">
+        <h5 class="modal-title bg-dark text-white" id="exampleModalLabel">Updates</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body bg-dark text-white">
+        {% if session['logged_in'] == True %}
+
+        <ul id="updates-list" class="list-group bg-dark text-white">
+          {% for item in get_user_notis(session['username']) %}
+
+          <li id="noti_{{item[4]}}" class="list-group-item bg-dark text-white mb-1">{{item[3]}} </br>
+            <a class="btn btn-primary btn-sm" href="/viewpost/{{item[2].split(":")[1]}}">View</a>
+            <button class="btn btn-primary btn-sm" onclick='deleteNoti("{{item[4]}}")'>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
+                <path d="M2.146 2.854a.5.5 0 1 1 .708-.708L8 7.293l5.146-5.147a.5.5 0 0 1 .708.708L8.707 8l5.147 5.146a.5.5 0 0 1-.708.708L8 8.707l-5.146 5.147a.5.5 0 0 1-.708-.708L7.293 8 2.146 2.854Z"/>
+              </svg>
+            </button>
+
+          </li>
+          <hr class="dropdown-divider">
+          {%endfor%}
+        {% endif %}
+        
+
+
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+{% endmacro %}
+
+
+
+{% macro community_dropdown_block(default) %}
+
+
+
+
+
+
+<div class="form-group  p-2 bg-dark text-white" class="create-post-forms">
+          <label class="bg-dark text-white p-2" for="exampleFormControlSelect1" >Community Select</label>
+          <select class=" bg-dark text-white form-control p-2" id="exampleFormControlSelect1" name="post-community">
+            <option selected>{{ default }}</option>
+
+            {% set keys = get_all_cat_new(session['username']) %}
+
+                            {% for cat_key in keys %}
+
+                              <optgroup label="{{cat_key}}"></optgroup>
+
+                              {% for item in keys.get(cat_key) %}
+
+                                  <option>{{item}}</option>
+
+                              {% endfor %}
+
+                            {%endfor%}
+
+
+
+          </select>
+        </div>
+
+{% endmacro %}
+
+
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+
+{% macro community_selector_block(username, default="Choose Community", default_id="newCommunitySelector") %}
+
+
+
+<div class="form-group align-content-center p-2 bg-dark text-white " class="create-post-forms">
+
+  <script>
+    
+
+    $(document).ready(function() {
+      $('.js-example-basic-single').select2({
+        theme: "bootstrap-5"
+      });
+  });
+      
+
+  </script>
+  
+  
+  <select   class="js-example-basic-single bg-dark" style="background-color: #343a40 !important;"  name="post-community" >
+    {% set item = get_all_catg(username) %}
+
+                {% if default != False %}
+
+                  <option>{{ default }}</option>
+                
+                  {% else %}
+
+                  <option>{{ "Choose Community" }}</option>
+
+                  {% endif %}
+
+
+
+
+
+                  <optgroup label="Your Communities"></optgroup>
+
+                  {% for stuff in item[0] %}
+                  <option>{{stuff}}</option>
+                  {%endfor%}
+
+                  <optgroup label="Cards"></optgroup>
+
+                  {% for stuff in item[2] %}
+                  <option>{{stuff[0]}}</option>
+                  {%endfor%}
+
+                  <optgroup label="Currency"></optgroup>
+
+                  {% for stuff in item[3] %} 
+                  <option>{{stuff[0]}}</option>
+                  {%endfor%}
+
+                  <optgroup label="Earth"></optgroup>
+
+                  {% for stuff in item[4] %}
+                  <option>{{stuff[0]}}</option>
+                  {%endfor%}
+
+                  <optgroup label="Transportation"></optgroup>
+
+                  {% for stuff in item[5] %}
+                  <option>{{stuff[0]}}</option>
+                  {%endfor%}
+
+                  <optgroup label="Misc"></optgroup>
+
+                  {% for stuff in item[6] %}
+                  <option>{{stuff[0]}}</option>
+                  {%endfor%}
+
+                  <optgroup label="Jewerly"></optgroup>
+
+                  {% for stuff in item[7] %}
+                  <option>{{stuff[0]}}</option>
+                  {%endfor%}
+
+
+  </select>
+
+</div>
+
+{%endmacro%}
+
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+
+{% macro create_block(community="Choose Community") %}
+
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+<script>
+  
+
+  $(function() {
+      // Multiple images preview in browser
+      var imagesPreview = function(input, placeToInsertImagePreview) {
+
+
+          if (input.files) {
+              var filesAmount = input.files.length;
+
+              for (i = 0; i < 1; i++) {
+                  var reader = new FileReader();
+
+                  reader.onload = function(event) {
+                      $($.parseHTML('<img width="100%" height="40%" >')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                      document.getElementById("add_photo_button").style.display = "none"
+                      document.getElementById("remove_photo").style.display = "block"
+                  }
+
+                  reader.readAsDataURL(input.files[i]);
+              }
+          }
+
+      };
+
+      $('#gallery-photo-add').on('change', function() {
+          imagesPreview(this, 'div.gallery1');
+      });
+
+
+  });
+
+  
+
+  function PreviewImage() {
+      document.getElementById("add_photo_button").style.display = "none"
+      document.getElementById("remove_photo").style.display = "block"
+      var oFReader = new FileReader();
+      oFReader.readAsDataURL(document.getElementById("uploadImage").files[0]);
+
+      oFReader.onload = function (oFREvent) {
+          document.getElementById("uploadPreview").src = oFREvent.target.result;
+      };
+  }
+
+  function getMarketValueEbay(){
+    name = document.getElementById("entry-off-name").value
+    document.getElementById("entry-value").value = "Loading.. Please Wait"
+
+
+
+    const stringArray = name.split(" ");
+
+
+    var marketEval = "$0"
+
+    $.ajax({
+      type: "POST",
+      dataType: "json",
+      url: "/get_market_eval",
+      contentType: 'application/json; charset=utf-8',
+      data: JSON.stringify({ keywords : name}),
+      success: function(data) {
+          marketEval = data
+
+          document.getElementById("entry-value").value = marketEval
+
+      }
+    });;
+
+    
+
+    
+
+}
+
+</script>
+
+<style>
+.badge-dropdown::placeholder {
+    color: white !important;
+  opacity: 1; /* Firefox */
+}
+
+.badge-dropdown::-ms-input-placeholder { /* Edge 12 -18 */
+  background-color: transparent !important;
+}
+
+.badge-dropdown:hover {
+  background-color: transparent !important;
+  text-decoration: none !important;
+  background-color: transparent !important;
+  }
+
+.badge-group-input::placeholder{
+  color: white !important;                
+}
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<form id="post_info" method="post" enctype="multipart/form-data">
+  
+  <div class="modal fade text-white bg-dark" id="createPostModal" tabindex="-1" aria-labelledby="createPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header bg-dark text-white">
+          <h5 class="modal-title">Create!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body bg-dark text-white">
+
+
+
+
+
+
+
+          <div class="card bg-dark mt-2 mb-2">
+            {{ para1 }}
+            <div class="card-header">
+                <div class="btn-group w-100">
+                  <input class="form-control bg-dark w-75 me-1 text-white" id="exampleFormControlTextarea1"  name="post-details" type="text" placeholder="Make a post">
+                    <button id="make-post-button" type='button' onclick="makePost()" class="btn btn-primary w-25 justify-content-center">
+    
+    
+                      <svg id="post_button_icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-send-plus" viewBox="0 0 16 16">
+                        <path d="M15.964.686a.5.5 0 0 0-.65-.65L.767 5.855a.75.75 0 0 0-.124 1.329l4.995 3.178 1.531 2.406a.5.5 0 0 0 .844-.536L6.637 10.07l7.494-7.494-1.895 4.738a.5.5 0 1 0 .928.372l2.8-7Zm-2.54 1.183L5.93 9.363 1.591 6.602l11.833-4.733Z"/>
+                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-3.5-2a.5.5 0 0 0-.5.5v1h-1a.5.5 0 0 0 0 1h1v1a.5.5 0 0 0 1 0v-1h1a.5.5 0 0 0 0-1h-1v-1a.5.5 0 0 0-.5-.5"/>
+                        </svg>
+    
+                        <span class="spinner-grow spinner-grow-sm" id="loader_button_icon" style="display: none" role="status" aria-hidden="true"></span>
+    
+    
+    
+                  </button>
+                    
+    
+    
+                </div>
+    
+                <button type="button" class="btn bg-dark w-100 " data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-arrow-bar-down" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M1 3.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5zM8 6a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 .708-.708L7.5 12.293V6.5A.5.5 0 0 1 8 6z"/>
+                    </svg>
+                </button>
+    
+    
+            </div>
+        </div>
+    
+        <div class="collapse bg-dark text-white" id="collapseExample">
+          <div class="card card-body bg-dark text-white">
+    
+            
+    
+    
+    
+    
+    
+            <select id="select2insidemodalcreate" class="js-example-basic bg-dark" style="background-color: #343a40 !important;"  name="post-community" >
+              {% set keys = get_all_cat_new(session['username']) %}
+          
+              <option selected="selected">Choose Community</option>
+  
+          
+              {% for cat_key in keys %}
+
+                <optgroup label="{{cat_key}}"></optgroup>
+
+                {% for item in keys.get(cat_key) %}
+
+                    <option>{{item}}</option>
+
+                {% endfor %}
+
+              {%endfor%}
+          
+          
+            </select>
+    
+            <div class="form-group align-content-center p-2 bg-dark text-white " class="create-post-forms">
+              <label class=" p-2 bg-dark text-white" for="collection_select" >Collection Select</label>
+              <select class="form-control p-2 bg-dark text-white" id="collection_select" name="collection_select">
+                <option value="None">None</option>
+                {% for item in get_user_collections(session['username']) %}
+                <option value={{item[1]}}>{{item[0]}}</option>
+              {% endfor %}
+              </select>
+
+
+            <button class="btn btn-primary w-100 mt-3 b-3" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAddInfo" aria-expanded="false" aria-controls="collapseAddInfo">
+              Add Info
+            </button>
+
+            <div class="collapse w-100 bg-dark" id="collapseAddInfo">
+              <div class="card card-body bg-dark">
+                <input id="entry-off-name" name="entry-off-name" class="bg-primary form-control badge-group disabled text-white badge-group-input mb-2" style="border-width: 0;" placeholder="Item (Add Details)" />
+                <input id="entry-origin-country" name="entry-origin-country" class=" bg-secondary form-control badge-group text-white badge-group-input mb-2" style="border-width: 0;" placeholder="Country" id="badge2">
+                <input id="entry-date" name="entry-date" class=" bg-success form-control badge-group text-white badge-group-input mb-2" style="border-width: 0;" placeholder="DOB" id="badge3">
+                <input id="entry-value" name="entry-value" class=" bg-danger form-control badge-group text-white badge-group-input mb-2" style="border-width: 0;" placeholder="Value" >
+                <button type="button" class="btn btn-primary form-control mb-2" onclick="getMarketValueEbay()">Get Market Value</button>
+              </div>
+            </div>
+
+
+
+
+            
+                      <button type="button" id="remove_photo" class=" form-groupbtn btn-primary w-100 border-0 me-1 form-control mt-2" onclick="removePhoto()" style="display: none">Remove Photo</button>
+    
+                      <label id="add_photo_button" for="uploadImage" class=" form-group w-100 me-1 mt-2"> <div class="btn btn-primary w-100 border-0 ">Add Photo</div> </label>
+                      <input type="file" id="upload_file" name="postphoto" style="display: none">
+    
+                    </div>
+
+    
+                  
+    
+          <input style="display: none" id="uploadImage" type="file" name="myPhoto" onchange="PreviewImage();" />
+                <img id="uploadPreview" class="bg-transparent border-0" style="max-width: 100%; max-height: 200px;" />
+    
+    
+                <div class="w-100 align-content-center d-flex mb-3 mt-2">
+                    <div class="form-check form-switch w-25 ms-2">
+                        <label class="form-check-label" for="flexSwitchCheckChecked">Public</label>
+                      <input id="visibility" name="visibility" class="form-check-input form-control" type="checkbox" id="flexSwitchCheckChecked" checked>
+                    </div>
+    
+                </div>
+    
+    
+    
+    
+          </div>
+        </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
+    
+    </form>
+
+
+{% endmacro %}
+
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+
+{% macro profile_card(user) %}
+
+  <div class="card-body w-100" style="margin-top: 30px;">
+    <ul class="list-group list-group-horizontal w-100">
+      <li class="list-group-item w-25 bg-dark text-white"><img style="width: 40px;" class="rounded-circle shadow-4-strong" alt="thrh5eth" src="{{ get_user_avatar(user) }}" /></li>
+      {% if user == session['username'] %}
+
+          <li class="list-group-item w-75 bg-dark text-white">
+          <a  class="card-subtitle mb-2 text-muted" href="/profile">{{ user }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+
+          </a>
+        </li>
+
+        {% else %}
+
+        <li class="list-group-item w-75 bg-dark text-white">
+          <a  class="card-subtitle mb-2 text-muted" href="/viewuser/{{user}}">{{ user }}
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+            </svg>
+
+          </a>
+        </li>
+
+      {% endif %}
+
+
+    </ul>
+  </div>
+
+{% endmacro %}
+
+
+
+
+{% macro collection_card(collection, username, post_type) %}
+
+
+
+<script>
+
+    function ajaxDeleteCollection(collection_id, postType){
+        var fullString = String("save_collection_" + collection_id)
+
+
+      if(postType === "1"){
+          fullString = String("save_collection1_" + collection_id)
+      }
+
+      document.getElementById("div-collection_" + collection_id).remove()
+
+
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "/delete_collection",
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify({ collectionId: collection_id}),
+          success: function(data) {
+          }
+        });
+
+
+    }
+
+  function ajaxSaveCollection(collectionId, username, postType) {
+
+      var fullString = String("save_collection_" + collectionId)
+
+
+      if(postType === "1"){
+          fullString = String("save_collection1_" + collectionId)
+      }
+
+
+
+        value = document.getElementById(fullString).getAttribute('value')
+
+
+        if(value == "saved"){
+
+          document.getElementById(fullString).setAttribute('class', 'card-link btn btn-dark')
+          document.getElementById(fullString).setAttribute('value', 'unsaved')
+        } else{
+          document.getElementById(fullString).setAttribute('class', 'card-link btn btn-primary')
+          document.getElementById(fullString).setAttribute('value', 'saved')
+        }
+
+
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "/save_collection",
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify({ collectionId: collectionId,  username: username}),
+            success: function(data) {
+          }
+        });;
+      }
+</script>
+
+    {% set save_collection = 'save_collection_' + collection[1] %}
+
+    {% if post_type == 1 %}
+        {% set save_collection = 'save_collection1_' + collection[1] %}
+    {% endif %}
+
+
+<div id="div-collection_{{ collection[1] }}" class="card mt-4" value="{{ collection[1]}}">
+
+<div id="div-collection" class="card w-100 bg-dark">
+  <div class="card-body">
+    <h5 class="card-title text-white"> {{collection[5]}} | {{ collection[0] }}</h5>
+  </br>
+    <a  class="card-subtitle mb-2 text-muted" href="/viewuser/{{collection[3]}}">{{ collection[3] }}
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
+      <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+    </svg>
+
+    </a>
+    <p class="card-text text-white">{{ collection[4] }}</p>
+    <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary">View</a>
+
+      {% if is_collection_saved(session['username'], collection[1]) %}
+          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-primary">Save</button>
+      {% else %}
+          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="unsaved" type="button" class="card-link btn btn-dark">Save</button>
+      {% endif %}
+
+        {% if collection[3] == session['username'] %}
+            <button typeof="button" onclick='ajaxDeleteCollection( "{{collection[1]}}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-danger">Delete</button>
+        {% endif %}
+
+  </div>
+</div>
+
+
+
+
+
+</div>
+
+{% endmacro %}
+
+
+{% macro collection_card_1(collection, username) %}
+
+<script>
+  function ajaxSaveCollection(collectionId, username) {
+
+        var fullString = String("save_collection1_" + collectionId)
+
+        value = document.getElementById(fullString).getAttribute('value')
+
+
+        if(value == "saved"){
+          document.getElementById(fullString).setAttribute('class', 'btn btn-dark')
+          document.getElementById(fullString).setAttribute('value', 'unsaved')
+        } else{
+          document.getElementById(fullString).setAttribute('class', 'btn btn-primary')
+          document.getElementById(fullString).setAttribute('value', 'saved')
+        }
+
+
+        $.ajax({
+          type: "POST",
+          dataType: "json",
+          url: "/save_collection",
+          contentType: 'application/json; charset=utf-8',
+          data: JSON.stringify({ collectionId: collectionId,  username: username}),
+          success: function(data) {
+          }
+        });;
+      }
+</script>
+
+<div id="div-post" class="card mt-4">
+
+<div class="card w-100 bg-dark">
+  <div class="card-body">
+    <h5 class="card-title text-white"> Collection | {{ collection[0] }}</h5>
+  </br>
+    <h6 class="card-subtitle mb-2 text-muted">{{ collection[3] }}</h6>
+    <p class="card-text text-white">{{ collection[4] }}</p>
+    <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary">View</a>
+
+      {% if is_collection_saved(session['username'], collection[1]) %}
+          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}")' id="save_collection1_{{collection[1]}}" value="saved" type="button" class="btn btn-primary" class="card-link btn btn-primary">Save</button>
+      {% else %}
+          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}")' id="save_collection1_{{collection[1]}}" value="saved" type="button" class="btn btn-primary" class="card-link btn btn-dark">Save</button>
+      {% endif %}
+
+  </div>
+</div>
+
+
+
+
+
+</div>
+
+{% endmacro %}
+
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------
+
+
+{% macro realobserver() %}
+
+    <button id="real-observer" class="btn btn-dark w-100 mt-4 mb-5" type="button" disabled>
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Loadingaaaa
+                          </button>
+
+{% endmacro %}
+
+{% macro collection_nav_icon() %}
+
+
+
+    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-collection-fill" viewBox="0 0 16 16">
+      <path d="M0 13a1.5 1.5 0 0 0 1.5 1.5h13A1.5 1.5 0 0 0 16 13V6a1.5 1.5 0 0 0-1.5-1.5h-13A1.5 1.5 0 0 0 0 6v7zM2 3a.5.5 0 0 0 .5.5h11a.5.5 0 0 0 0-1h-11A.5.5 0 0 0 2 3zm2-2a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 0-1h-7A.5.5 0 0 0 4 1z"/>
+    </svg>
+{% endmacro %}
+
+{% macro viewusercard(para1) %}
+
+<div class="card text-center bg-transparent border-0" style="margin-top: 10px; margin-bottom: 30px">
+    <div class="card-header bg-dark text-white w-100">
+        {{para1}}
+    </div>
+    <div class="card-body bg-dark text-white w-100">
+        <img style="width: 86px;" class="rounded-circle shadow-4-strong" alt="avatar2" src='{{ get_user_avatar(para1) }}' />
+        <P>{{get_user_info(para1)[3]}}</P>
+
+        {% if get_user_info(para1) == "False" %}
+
+        <div class="card bg-dark text-white">
+          <div class="card-body bg-dark text-white">
+            This user does not exist.
+          </div>
+        </div>
+
+
+          {% set ns = is_follow(session['username'], para1) %}
+
+
+
+          <div class="btn-group bg-dark text-white" role="group">
+                                {% if ns == True %}
+                                  <button  id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Following
+                                  </button>
+
+                                {% elif ns == "requested" %}
+                                  <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Requested
+                                  </button>
+
+                                  {% else%}
+                                  <button id="btnGroupDrop1" type="button" class="btn btn-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                      Follow
+                                  </button>
+                                {% endif %}
+
+                            <style>
+                                .control-button-user:hover{
+                                    background-color:  #2c3034;
+                                }
+                            </style>
+
+                              <ul class="dropdown-menu bg-dark text-white" aria-labelledby="btnGroupDrop1">
+                                  {% if ns == True %}
+                                      <li><button id="follow_action_button" onclick="followRequest('unfollow', '{{ para1 }}')" class="dropdown-item text-white control-button-user" >Unfollow</button></li>
+                                  {% elif ns == "requsted" %}
+                                      <li><button id="follow_action_button" onclick="followRequest('stop_request', '{{ para1 }}')" class="dropdown-item text-white control-button-user" >Cancel Request</button></li>
+                                  {% else %}
+                                      <li><button id="follow_action_button" onclick="followRequest('follow','{{ para1 }}')" class="dropdown-item text-white control-button-user" >Follow</button></li>
+                                  {% endif %}
+
+                                <li><a class="dropdown-item text-white control-button-user" href="#" disabled>Block</a></li>
+                                <li><a class="dropdown-item text-white control-button-user" href="#" disabled>Message</a></li>
+                              </ul>
+                            </div>
+                            {% endif %}
+                          </div>
+
+                    </div>
+
+{% endmacro %}

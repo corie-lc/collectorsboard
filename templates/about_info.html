@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKDD8KZG8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKDD8KZG8F');
+</script>
+
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>CB | Support</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="scrollingSystems.js" type="module"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+          integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+          crossorigin="anonymous"></script>
+
+    
+</head>
+
+
+{% from 'macros.html' import navbar_block %}
+{{ navbar_block() }}
+
+
+
+<script>
+
+  function sendSupportEmail(){
+    var support_selector_dropdown = document.getElementById("exampleFormControlSelect1");
+
+    var support_type = support_selector_dropdown.options[support_selector_dropdown.selectedIndex].text;
+
+    var message = document.getElementById("exampleFormControlTextarea1").value
+
+    if(message === ""){
+      document.getElementById("exampleFormControlTextarea1").style.borderColor = "red";
+    } else{
+      document.getElementById("exampleFormControlTextarea1").style.borderColor = "white";
+      document.getElementById("buttonSendEmail").innerHTML = "Message Was Sent."
+
+
+
+      $.ajax({
+        type: "POST",
+        dataType: "json",
+        url: "/send_support_email",
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({type: support_type, message: message}),
+        success: function(data) {
+
+
+        }
+      });
+    }
+
+
+
+
+  }
+
+</script>
+
+<style>
+  body {
+      background-color: #2c3034;
+  }
+
+  .nav-link.active {
+      background-color: #2c3034 !important;
+      border: 0 !important;
+  }
+
+  #myTab {
+      top:62px;
+      z-index:1
+
+  }
+
+  .tab-pane{
+      height: calc(100vh - 150px);
+      overflow-y:auto; width:100%;
+      scrollbar-width: none;
+  }
+
+  .tab-pane::-webkit-scrollbar {
+      display: none;
+  }
+</style>
+
+
+
+<div class="container">
+  <div class="custom-class row mx-auto col-md-9 col-lg-6 align-items-center">
+<div class="card bg-dark text-white mt-3">
+
+  
+
+  <div class="card-header bg-danger text-white mt-3 mb-3">
+    Support Request
+  </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect bg-dark text-white1">Support Type</label>
+              <select class="form-control bg-dark text-white" id="exampleFormControlSelect1">
+                <option>Community Suggestion</option>
+                <option>Report a Bug</option>
+                <option>Account Help</option>
+                <option>Membership Inquiry</option>
+                <option>Feature Request</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group bg-dark text-white mt-1">
+            <div class="form-group bg-dark text-white">
+              <label for="exampleFormControlTextarea1">Details(If you're logged out or have no account, leave contact info in this box along with a message</label>
+              <textarea class="form-control bg-dark text-white" id="exampleFormControlTextarea1" rows="3"></textarea>
+            </div>
+            <p1 id="messageSentNoti" class="mt-1" style="color: red; display: none">Message Sent! </p1>
+          </div>
+
+
+
+            <button id="buttonSendEmail" type="reset" class="btn btn-danger mt-2 w-100 mt-3 mb-3" onclick="sendSupportEmail()" >Send -></button>
+        </div>
+
+
+          
+
+          <div class="card bg-dark text-white mt-3">
+            <div class="card-header bg-success text-white">
+              What We Do!
+            </div>
+            <div class="card-body bg-dark text-white">
+              <h5 class="card-title bg-dark text-white">What we do!</h5>
+
+                  <p class="text-start"><em><strong>Here at CollectorsBoard, we are out to provide a free and open tool to track, value and share your collectables. Want to show people your full collection quickly or get the total value of your entire collection? Try CollectorsBoard.live out!</strong></em></p>
+
+
+            <p1 class="text-start"><em>A few things we currently offer!</em></p1>
+            <ul class="list-style text-start">
+                <li>Create item posts/entrys</li>
+                <li>Join and make posts within a category specific community.</li>
+                <li>Adding your items and other users items to your customizable collections</li>
+                <li>Comment on, share, save items/collections</li>
+                <li>Create entrys/posts with current market value (beta).</li>
+                <li>Add tags such as where and when an item was made, a photo and the official name along with general details</li>
+                <li>Custom feed built for you!</li>
+                <li>Open Source code and full disclosure of what partners we work with!</li>
+            </ul>
+
+            <p1 class="text-start"><em>Features in development:</em></p1>
+            <ul class="list-style text-start">
+                <li>Market Place</li>
+                <li>Live auctions</li>
+                <li>Image galleries for each item</li>
+                <li>Updating prices of items/collections every few hours!</li>
+                <li>Instant Messaging</li>
+                <li>-	Admins for communities(please reach out via our support form to claim your spot for a community)</li>
+            </ul>
+
+          </div>
+
+
+
+
+        </div>
+
+            <hr/>
+
+
+          <div class="card bg-dark text-white mt-3">
+            <div class="card-header bg-success text-white">
+              Support & Note From Developer
+            </div>
+            <div class="card-body bg-dark text-white">
+              <h5 class="card-title bg-dark text-white"></h5>
+              <p class="card-text">Our team is very small, and our budget is just as small. Please do not abuse any features. We would appreciate any support in the form as spreading the site, reporting bugs, asking for new features, ect. Thank you!</p>
+            </div>
+          </div>
+
+            <div class="card bg-dark text-white mt-3">
+            <div class="card-header bg-dark text-white">
+              Policy For Password Reset (Forgot Password)
+            </div>
+            <div class="card-body bg-dark text-white">
+              <p class="card-text">Currently, resetting passwords is difficult. We cannot always reset passwords, so please be sure to pick a password you remember. If you do happen to forget it, please reach out via our support form.</p>
+            </div>
+          </div>
+
+             <div class="card bg-dark text-white mt-3">
+            <div class="card-header bg-dark text-white">
+              Policy For Submission of new Communities
+            </div>
+            <div class="card-body bg-dark text-white">
+              <p class="card-text">Please contact us via our support form with a new community feature. We are dedicated to giving users only site specific content, and to enforce this, our team approves and publishes communties. We do plan to apply admin privileges.</p>
+            </div>
+          </div>
+
+            <div class="card bg-dark text-white mt-3">
+            <div class="card-header bg-dark text-white">
+              Issues or Feature Requests
+            </div>
+            <div class="card-body bg-dark text-white mb-3">
+              <p class="card-text">Please submit bug fixes or feature requests via github or our support form above</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+</body>
+</html>
+

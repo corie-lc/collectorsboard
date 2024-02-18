@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKDD8KZG8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKDD8KZG8F');
+</script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>CB | Login</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="scrollingSystems.js" type="module"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
+
+</head>
+
+<style>
+    body{
+        background-color: #2c3034;
+    }
+</style>
+
+<script>
+
+  function loginClicked(){
+    console.log("here")
+      document.getElementById("loader_button_icon").style.display = "inline-block";
+      document.getElementById("login_button").disabled = true;
+  }
+
+  function signUpClicked(){
+      document.getElementById("loader_button_icon_signup").style.display = "inline-block";
+      document.getElementById("login_button").disabled = true;
+  }
+
+</script>
+
+<body>
+
+
+
+    {% from 'macros.html' import navbar_block %}
+    {{ navbar_block() }}
+
+
+
+
+
+<div class="card text-center bg-dark mx-auto w-75" style="width: 45%; margin-top: 3%; " >
+
+  <div class="card bg-danger text-white mb-3">
+    <div class="card-header">
+      This site is still in beta, but we would love your support!
+    </div>
+    <div class="card-body">
+      We are still in beta testing, but we would love your support. Feel free to reach out via our <a href="/about_info">support</a> form to request features, report a bug and just any comments in general. 
+      </div>
+  </div>
+
+
+
+          <button class="btn btn-success" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            What is CollectorsBoard?
+          </button>
+        <div class="collapse" id="collapseExample">
+          <div class="card card-body bg-dark text-white">
+            <p class="text-start"><em><strong>Here at CollectorsBoard, we are out to provide a free and open tool to track, value and share your collectables. Want to show people your full collection quickly or get the total value of your entire collection? Try CollectorsBoard.live out!</strong></em></p>
+
+
+            <p1 class="text-start"><em>A few things we currently offer!</em></p1>
+            <ul class="list-style text-start">
+                <li>Create item posts/entrys</li>
+                <li>Join and make posts within a category specific community.</li>
+                <li>Adding your items and other users items to your customizable collections</li>
+                <li>Comment on, share, save items/collections</li>
+                <li>Create entrys/posts with current market value (beta).</li>
+                <li>Add tags such as where and when an item was made, a photo and the official name along with general details</li>
+                <li>Custom feed built for you!</li>
+                <li>Open Source code and full disclosure of what partners we work with!</li>
+            </ul>
+
+            <p1 class="text-start"><em>Features in development:</em></p1>
+            <ul class="list-style text-start">
+                <li>Market Place</li>
+                <li>Live auctions</li>
+                <li>Image galleries for each item</li>
+                <li>Updating prices of items/collections every few hours!</li>
+                <li>Instant Messaging</li>
+                <li>-	Admins for communities(please reach out via our support form to claim your spot for a community)</li>
+            </ul>
+
+          </div>
+        </div>
+
+    </div>
+
+    
+
+
+      <div class="custom-class row mx-auto col-x col-md-8 col-lg-5 align-items-center bg-dark w-75" style="width: 45%; margin-top: 3%; " >
+
+        
+
+
+
+
+
+
+
+        <div class="card-header bg-dark text-white" style="background-color: darkgray;">
+          Sign In
+        </div>
+
+        <div class="card-body text-white">
+
+
+            <form method="POST" action="/index">
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label">Email address OR username</label>
+                  <input  class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="emailHelp" name='login-username'>
+                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label bg-dark text-white">Password</label>
+                  <input type="password" class="form-control bg-dark text-white" id="exampleInputPassword1" name='login-password'>
+                    {% if session["logged_in"] == False %}
+                        <p style="color: red">Contact support for login help if you need it!</p>
+                    {% endif %}
+                </div>
+                <button type="submit" class="btn btn-primary w-100" onclick="loginClicked()" name='login-button'>Login
+                  <span class="spinner-grow spinner-grow-sm" id="loader_button_icon" style="display: none" role="status" aria-hidden="true"></span>
+                </button>
+              </form>
+          
+
+        </div>
+    </div>
+
+    <div class="card text-center bg-dark mx-auto w-75" style="width: 45%; margin-top: 3%; margin-bottom: 3%;" >
+
+        <div class="card-header bg-dark text-white" style="background-color: darkgray;">
+          Sign Up
+        </div>
+        
+        <div class="card-body bg-dark text-white">
+
+
+            <form class="needs-validation" action="/index" method="post">
+              <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label bg-dark text-white" style="color: white">Username</label>
+                <input name="username" class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="usernameHelp" required>
+                <div id="usernameHelp" class="form-text">You must use a unique username!</a></div>
+
+              </div>
+              
+                <div class="mb-3">
+                  <label for="exampleInputEmail1" class="form-label bg-dark text-white" style="color: white">Email address</label>
+                  <input name='email' type="email" class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  <div id="emailHelp" class="form-text">By signing up, you agree to our <a href="/privacypolicy"> privacy policy </a></div>
+                </div>
+                {% if session["logged_in"] == "used_username" %}
+                        <p style="color: red">This username is already in use!</p>
+                    {% elif session["logged_in"] == "used_email" %}
+                        <p style="color: red">This email is already in use!</p>
+                    {% elif session["logged_in"] == "invalid" %}
+                        <p style="color: red">This email is already in use!</p>
+                    {% endif %}
+                <div class="mb-3">
+                  <label for="exampleInputPassword1" class="form-label bg-dark text-white " style="color: white">Password</label>
+                  <input name="password" type="password" class="form-control bg-dark text-white mb-2" id="exampleInputPassword1" aria-describedby="passwordHelp" required>
+                  <label for="exampleInputPassword2" class="form-label bg-dark text-white mt-2" style="color: white">Enter Password Again</label>
+                  <input name="passwordTwo" type="password" class="form-control bg-dark text-white" id="exampleInputPassword2"  required>
+                  <div id="passwordHelp" class="form-text">Please use a valid email, and do NOT forget your password. It may not be able to be reset.</a></div>
+
+                  {% if session["logged_in"] == "match_fail" %}
+                        <p style="color: red">Passwords Don't Match!</p>
+                  {% endif %}
+                  
+                </div>
+
+                <button type="submit" class="btn btn-primary" onclick="signUpClicked()" name="signup-button">Sign up
+                  <span class="spinner-grow spinner-grow-sm" id="loader_button_icon_signup" style="display: none" role="status" aria-hidden="true"></span>
+
+                </button>
+              </form>
+                  </div>
+    </div>
+
+
+
+</body>
+</html>
