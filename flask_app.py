@@ -596,6 +596,22 @@ def more_feed_collection():
     return jsonify(data, number)
 
 
+@app.route('/get_user_feed', methods=['POST', 'GET'])
+def get_user_feed():
+    number = request.json['number']
+    posts = posts_entrys.get_feed_posts(session['username'])
+    print(posts)
+    data = ""
+
+    for item in posts:
+        hello = get_template_attribute('macros.html', 'post_block')
+        data += hello(item)
+
+    if data == "":
+        data = "none"
+
+    return jsonify(data, number)
+
 @app.route('/more_feed', methods=['POST', 'GET'])
 def more_feed():
     start = time.time()

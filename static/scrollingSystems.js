@@ -74,7 +74,8 @@ let boxElementCommunityPosts = document.querySelector(idCommunityPosts)
 var current = false
 
 function handleIntersect(entries, observer) {
-    console.log("hand;e")
+
+    console.log("hand;eeee")
     observer.unobserve(document.querySelector(id))
     if (current !== true) {
         entries.forEach((entry) => {
@@ -84,7 +85,7 @@ function handleIntersect(entries, observer) {
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: "/more_feed",
+                url: "/get_user_feed",
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({number: counter, type: "user_feed"}),
                 success: function (data) {
