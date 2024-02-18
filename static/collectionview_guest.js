@@ -78,7 +78,7 @@ function handleStuff(observer){
 
                     if (duplicate == false){
                         document.getElementById('post_list').insertAdjacentHTML('beforeend', data[0])
-                        counter = (Number(data[1]) + 8);
+                        counter = (Number(data[1]) + 4);
                         duplicate = false;
                         list_p.push(doc.getElementById("div-post").getAttribute("value"))
                     }

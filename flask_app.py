@@ -527,27 +527,16 @@ def more_collectionview_feed_guest():
     id = request.json['id']
     data = ""
 
-    posts = collections.get_collection_posts(id, '@guest_unusable_1190090')
+    posts = collections.get_collection_posts(id, '@guest_unusable_1190090', number)
+    print(posts)
 
-    while number < len(posts):
-        try:
-            i = 0
-            while i < 8:
-                hello = get_template_attribute('macros.html', 'post_block_guest')
-                data += hello(posts[number + i])
-                i += 1
-            break
-        except:
-            data = ""
-            i = 0
-            while i < len(posts) - number:
-                hello = get_template_attribute('macros.html', 'post_block_guest')
-                data += hello(posts[number + i])
-                i += 1
-            break
+    for item in posts:
+        hello = get_template_attribute('macros.html', 'post_block_guest')
+        data += hello(item)
 
     if data == "":
         data = "none"
+
     return jsonify(data, number)
 
 
