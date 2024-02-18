@@ -167,6 +167,8 @@ function handleIntersectCommunity(entries, observer) {
                         observer.observe(document.querySelector("#observer_community_posts"))
 
 
+
+
                     }
 
                 }
@@ -183,6 +185,8 @@ function handleIntersectCommunity(entries, observer) {
 function handleIntersectTopPosts(entries, observer) {
     observer.unobserve(document.querySelector("#observer_top_posts"))
         entries.forEach((entry) => {
+
+            console.time('popularfeed')
 
         $.ajax({
             type: "POST",
@@ -211,6 +215,9 @@ function handleIntersectTopPosts(entries, observer) {
                     }
 
                     observer.observe(document.querySelector("#observer_top_posts"))
+
+                    console.timeEnd('doSomething')
+
 
 
                 }
