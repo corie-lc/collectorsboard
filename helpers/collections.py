@@ -49,7 +49,7 @@ def Reverse(lst):
    return new_lst
 
 
-def get_collection_posts(collection_id, username):
+def get_collection_posts(collection_id, username, start_at=-1):
     mydb = get_database()
 
     cursor = mydb.cursor()
@@ -58,23 +58,50 @@ def get_collection_posts(collection_id, username):
     statmt_collection = "SELECT * FROM joint_cposts WHERE collection_id = %s"
     cursor.execute(statmt_collection, (collection_id,))
     posts = []
-    
 
-    for item in cursor:
-        if item[1] == collection_id:
+    if start_at > -1:
+        print(start_at)
+        start_at_posts = Reverse(cursor.fetchall())
+        print(len(start_at_posts))
+        i = start_at
         
-
-            post_info = posts_entrys.get_post_by_id(item[0])
+        while i < start_at + 4 and i < len(start_at_posts):
+            print(i)
+            post_info = posts_entrys.get_post_by_id(start_at_posts[i][0])
 
             if username == post_info[4]:
-                posts.append(item)
+                posts.append(start_at_posts[i])
+                i += 1
             elif accounts.is_account_public(post_info[4]) == False:
                 pass
 
             elif post_info[14] == "public" and post_info[7] == "on":
-                posts.append(item)
+                posts.append(start_at_posts[i])
+                i += 1
             elif social.is_follow(username, post_info[4]) == True and post_info[7] == "on":
-                posts.append(item)
+                posts.append(start_at_posts[i])
+                i += 1
+            
+
+    
+    else:
+    
+
+        for item in cursor:
+            if item[1] == collection_id:
+            
+
+                post_info = posts_entrys.get_post_by_id(item[0])
+
+                if username == post_info[4]:
+                    posts.append(item)
+                elif accounts.is_account_public(post_info[4]) == False:
+                    pass
+
+                elif post_info[14] == "public" and post_info[7] == "on":
+                    posts.append(item)
+                elif social.is_follow(username, post_info[4]) == True and post_info[7] == "on":
+                    posts.append(item)
         
             
 
@@ -90,7 +117,6 @@ def get_collection_posts(collection_id, username):
 
     ts = '2013-01-12 15:27:43'
     f = '%Y-%m-%d %H:%M:%S'
-
 
 
 
