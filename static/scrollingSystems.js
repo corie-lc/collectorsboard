@@ -187,7 +187,7 @@ function handleIntersectTopPosts(entries, observer) {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "/more_feed",
+            url: "/get_toppost_feed",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({ number: counterTopPosts, type: "top_posts_feed"  }),
             success: function(data) {

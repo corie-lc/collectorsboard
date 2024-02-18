@@ -178,28 +178,50 @@ def get_top_community_post(community, username):
 
     return all
 
-def get_top_posts(username):
+def get_top_posts(username, start_at=-1):
     public_posts = get_all_posts(date=False)
     posts = []
 
     followed_communities = accounts.get_followed_communties(username)
 
+    i = start_at
 
-    for item in public_posts:
+    if start_at > -1:
+        while i < start_at + 4 and i < len(public_posts):
+            print(i)
+            post_info = posts_entrys.get_post_by_id(public_posts[i][0])
 
-        
-        
+            if accounts.is_account_public(public_posts[i][4]) == False:
+                pass
 
-        if accounts.is_account_public(item[4]) == False:
-            pass
-        elif item[14] == "public" and item[7] == "on":
-            posts.append(item)
-        elif social.is_follow(username, item[4]) == True and item[7] == "on":
-            posts.append(item)
-        elif item[1] in followed_communities:
-            posts.append(item)
+            elif public_posts[i][14] == "public" and public_posts[i][7] == "on":
+                posts.append(public_posts[i])
+                i += 1
+            elif social.is_follow(username, public_posts[i][4]) == True and public_posts[i][7] == "on":
+                posts.append(public_posts[i])
+                i += 1
+            elif public_posts[i][1] in followed_communities:
+                posts.append(public_posts[i])
+                i += 1
+
+    else:
+
+
+        for item in public_posts:
+
             
-    all = count_liked_post_lists(posts)
+            
+
+            if accounts.is_account_public(item[4]) == False:
+                pass
+            elif item[14] == "public" and item[7] == "on":
+                posts.append(item)
+            elif social.is_follow(username, item[4]) == True and item[7] == "on":
+                posts.append(item)
+            elif item[1] in followed_communities:
+                posts.append(item)
+                
+        all = count_liked_post_lists(posts)
 
     return all
 

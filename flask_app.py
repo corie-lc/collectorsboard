@@ -612,6 +612,22 @@ def get_user_feed():
 
     return jsonify(data, number)
 
+@app.route('/get_toppost_feed', methods=['POST', 'GET'])
+def get_toppost_feed():
+    number = request.json['number']
+    posts = posts_entrys.get_top_posts(session['username'], number)
+    print(posts)
+    data = ""
+
+    for item in posts:
+        hello = get_template_attribute('macros.html', 'post_block')
+        data += hello(item)
+
+    if data == "":
+        data = "none"
+
+    return jsonify(data, number)
+
 @app.route('/more_feed', methods=['POST', 'GET'])
 def more_feed():
     start = time.time()
