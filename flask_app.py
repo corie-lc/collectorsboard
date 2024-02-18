@@ -629,6 +629,25 @@ def get_toppost_feed():
 
     return jsonify(data, number)
 
+
+@app.route('/your_communities_posts', methods=['POST', 'GET'])
+def your_communities_posts():
+    number = request.json['number']
+    posts = posts_entrys.get_related_community_posts(session['username'], number)
+    print(posts)
+    data = ""
+
+    for item in posts:
+        hello = get_template_attribute('macros.html', 'post_block')
+        data += hello(item)
+
+    if data == "":
+        print("none")
+        data = "none"
+
+    return jsonify(data, number)
+
+
 @app.route('/more_feed', methods=['POST', 'GET'])
 def more_feed():
     start = time.time()

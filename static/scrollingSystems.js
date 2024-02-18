@@ -91,7 +91,7 @@ function handleIntersect(entries, observer) {
                 success: function (data) {
 
                     if (data[0] === "none") {
-                        document.querySelector("#observer").innerHTML = "No More Posts :("
+                        document.querySelector("#observer").innerHTML = "Looking around "
                     } else {
 
                         var doc = new DOMParser().parseFromString(data[0], "text/html")
@@ -137,22 +137,27 @@ function handleIntersectCommunity(entries, observer) {
     if (current !== true) {
         entries.forEach((entry) => {
 
+            console.time('communityposts')
+
+
             $.ajax({
                 type: "POST",
                 dataType: "json",
-                url: "/more_feed",
+                url: "/your_communities_posts",
                 contentType: 'application/json; charset=utf-8',
                 data: JSON.stringify({number: counter, type: "your_communities_posts"}),
                 success: function (data) {
 
                     if (data[0] == "none") {
-                        document.querySelector("#observer_community_posts").innerHTML = "No More Posts :("
+                        document.querySelector("#observer_community_posts").innerHTML = "Looking around "
                     } else {
 
                         var doc = new DOMParser().parseFromString(data[0], "text/html")
                         var duplicate = false;
 
                         if (list_pCommunityPosts.includes(doc.getElementById("div-post").getAttribute("value"))) {
+                            counterRecCommunityPosts = (Number(data[1]) + 1);
+                            console.log("failed lol")
                             duplicate = true;
                         }
 
@@ -165,6 +170,7 @@ function handleIntersectCommunity(entries, observer) {
                         }
                         current = false
                         observer.observe(document.querySelector("#observer_community_posts"))
+                        console.timeEnd('communityposts')
 
 
 
@@ -196,7 +202,7 @@ function handleIntersectTopPosts(entries, observer) {
             data: JSON.stringify({ number: counterTopPosts, type: "top_posts_feed"  }),
             success: function(data) {
                 if(data[0] === "none"){
-                    document.querySelector(idTopPosts).innerHTML = "No More Posts :("
+                    document.querySelector(idTopPosts).innerHTML = "Looking around "
                 } else{
 
                     const doc = new DOMParser().parseFromString(data[0], "text/html");
@@ -241,7 +247,7 @@ function handleIntersectCollection(entries, observer) {
             success: function(data) {
 
                 if(data[0] == "none"){
-                    document.querySelector(idCollections).innerHTML = "No More Collections :("
+                    document.querySelector(idCollections).innerHTML = "No More Collections "
                 } else{
 
                     var doc = new DOMParser().parseFromString(data[0], "text/html")
@@ -296,7 +302,7 @@ function handleIntersectProfileAllPosts(entries, observer) {
             success: function(data) {
 
                 if(data[0] == "none"){
-                    document.querySelector("#observerProfileAllPosts").innerHTML = "No More Posts :("
+                    document.querySelector("#observerProfileAllPosts").innerHTML = "Looking around "
                 } else{
 
                     var doc = new DOMParser().parseFromString(data[0], "text/html")
@@ -353,7 +359,7 @@ function handleIntersectUserPosts(entries, observer) {
             success: function(data) {
 
                 if(data == "none"){
-                    document.querySelector("#observerViewUserUserPosts").innerHTML = "No More Posts :("
+                    document.querySelector("#observerViewUserUserPosts").innerHTML = "Looking around "
                 } else{
 
                     var doc = new DOMParser().parseFromString(data, "text/html")
@@ -411,7 +417,7 @@ function handleIntersectSearchPosts(entries, observer) {
                 data = stuff[0]
 
                 if(data === "none"){
-                    document.querySelector("#search-post-observer").innerHTML = "No More Posts :("
+                    document.querySelector("#search-post-observer").innerHTML = "Looking around "
                 } else{
 
                     var doc = new DOMParser().parseFromString(data, "text/html")

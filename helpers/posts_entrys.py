@@ -681,14 +681,52 @@ def edit_post(post_id, details, name, country, date, value, community):
     return True
 
 
-def get_related_community_posts(username):
-    print("tryinh here")
+def get_related_community_posts(username, start_at = -1):
     related_communties = accounts.get_followed_communties(username)
-    all_posts = []
+
+
+    mydb = get_database()
+
+    cursor = mydb.cursor()
+
+    statmt = "select * FROM posts WHERE user_public = %s and visability = %s"
+    cursor.execute(statmt, ("public", "on"))
+
+
+    print("comminty posts")
+    community_posts = []
+
+    for item in list(cursor):
+        print(item[1])
+        print(related_communties)
+        if item[1] in related_communties:
+            community_posts.append(item)
+
+    print(community_posts)
+            
+    print("tryinh here")
+    posts_to_send = []
     rec_posts = []
 
-    for item in related_communties:
-        all_posts = all_posts + get_community_post(item, username)
+    if start_at > -1:
+        i = start_at
+        while i < len(community_posts):
+            if i < start_at + 4:
+                print("popular post")
+                print(i)
 
-    return all_posts
+
+                posts_to_send.append(community_posts[i])
+                i += 1
+            else:
+                break
+
+
+        
+    else:
+
+        for item in related_communties:
+            posts_to_send = posts_to_send + get_community_post(item, username)
+
+    return posts_to_send
 
