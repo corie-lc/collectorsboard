@@ -186,7 +186,7 @@ function handleIntersectTopPosts(entries, observer) {
     observer.unobserve(document.querySelector("#observer_top_posts"))
         entries.forEach((entry) => {
 
-            console.time('popularfeed')
+            console.time('popularfeed3')
 
         $.ajax({
             type: "POST",
@@ -216,7 +216,7 @@ function handleIntersectTopPosts(entries, observer) {
 
                     observer.observe(document.querySelector("#observer_top_posts"))
 
-                    console.timeEnd('doSomething')
+                    console.timeEnd('popularfeed3')
 
 
 

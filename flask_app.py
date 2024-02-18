@@ -599,7 +599,7 @@ def more_feed_collection():
 @app.route('/get_user_feed', methods=['POST', 'GET'])
 def get_user_feed():
     number = request.json['number']
-    posts = posts_entrys.get_feed_posts(session['username'])
+    posts = posts_entrys.get_feed_posts(session['username'], number)
     print(posts)
     data = ""
 
@@ -624,6 +624,7 @@ def get_toppost_feed():
         data += hello(item)
 
     if data == "":
+        print("none")
         data = "none"
 
     return jsonify(data, number)

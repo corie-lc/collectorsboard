@@ -179,31 +179,34 @@ def get_top_community_post(community, username):
     return all
 
 def get_top_posts(username, start_at=-1):
-    public_posts = get_all_posts(date=False)
+    mydb = get_database()
+
+    cursor = mydb.cursor()
+
+    statmt = "select * FROM posts WHERE user_public = %s and visability = %s"
+    cursor.execute(statmt, ("public", "on"))
+
+    public_posts = count_liked_post_lists(list(cursor))
+
     posts = []
+    print(start_at)
 
     followed_communities = accounts.get_followed_communties(username)
 
-    i = start_at
 
     if start_at > -1:
-        while i < start_at + 4 and i < len(public_posts):
-            print(i)
-            post_info = posts_entrys.get_post_by_id(public_posts[i][0])
+        i = start_at
+        while i < len(public_posts):
+            if i < start_at + 4:
+                print("popular post")
+                print(i)
 
-            if accounts.is_account_public(public_posts[i][4]) == False:
-                pass
-
-            elif public_posts[i][14] == "public" and public_posts[i][7] == "on":
                 posts.append(public_posts[i])
                 i += 1
-            elif social.is_follow(username, public_posts[i][4]) == True and public_posts[i][7] == "on":
-                posts.append(public_posts[i])
-                i += 1
-            elif public_posts[i][1] in followed_communities:
-                posts.append(public_posts[i])
-                i += 1
+            else:
+                break
 
+        
     else:
 
 
@@ -221,7 +224,7 @@ def get_top_posts(username, start_at=-1):
             elif item[1] in followed_communities:
                 posts.append(item)
                 
-        all = count_liked_post_lists(posts)
+    all = posts
 
     return all
 
@@ -239,29 +242,39 @@ def get_top_posts_of_community(username, community):
 
 
 def get_feed_posts(username, start_at = -1):
-    public_posts = get_all_posts(date=True)
+    mydb = get_database()
+
+    cursor = mydb.cursor()
+
+    statmt = "select * FROM posts WHERE user_public = %s and visability = %s and username <> %s"
+    cursor.execute(statmt, ("public", "on", username))
+
+    public_posts = count_liked_post_lists(list(cursor))
+
+    i = 1
+    while i < len(public_posts):
+        if social.is_follow(username, public_posts[i][4]) == True and public_posts[i][7] == "on":
+            del public_posts[i]
+        i += 1
+
+
     posts = []
-    i = start_at
+    print(start_at)
+
+    followed_communities = accounts.get_followed_communties(username)
+
 
     if start_at > -1:
-        while i < start_at + 4 and i < len(public_posts):
-            print(i)
-            post_info = posts_entrys.get_post_by_id(public_posts[i][0])
+        i = start_at
+        while i < len(public_posts):
+            if i < start_at + 4:
+                print("popular post")
+                print(i)
 
-            if public_posts[i][4] == username:
-                pass
-            elif accounts.is_account_public(public_posts[i][4]) == False:
-                pass
-
-            elif public_posts[i][14] == "public" and public_posts[i][7] == "on":
                 posts.append(public_posts[i])
                 i += 1
-            elif social.is_follow(username, public_posts[i][4]) == True and public_posts[i][7] == "on":
-                posts.append(public_posts[i])
-                i += 1
-            elif public_posts[i][1] in followed_communities:
-                posts.append(public_posts[i])
-                i += 1
+            else:
+                break
 
     
     else:
