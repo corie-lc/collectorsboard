@@ -2,6 +2,7 @@ appid = "corielec-collec-SBX-4428ece0e-4d9be7b5"
 
 from ebaysdk.finding import Connection as Finding
 from ebaysdk.exception import ConnectionError
+from helpers.doadmin import get_database
 import statistics
 
 
@@ -37,4 +38,5 @@ def get_market_eval(keywords):
             all.append(item.get("price").get("value"))
 
     return round(statistics.mean(all), 2)
+
 

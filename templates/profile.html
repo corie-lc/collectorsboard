@@ -238,6 +238,28 @@
                   </div>
                 </div>
 
+                <hr>
+
+
+                <button class="btn btn-primary mt-2 mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleMembership" aria-expanded="false" aria-controls="collapseExampleMembership">
+                  Membership Services
+                </button>
+
+                <div class="collapse bg-dark text-white w-100" id="collapseExampleMembership">
+                  <div class="card bg-dark text-white w-100">
+                    <div class="card-header bg-success text-white">
+                      Membership Information
+                    </div>
+                    
+                    <ul class="list-group list-group-flush bg-dark text-white">
+                      <li class="list-group-item bg-dark text-white w-100">Membership Level: {{get_user_mem_tier(session['username'])}}</li>
+                      <li class="list-group-item bg-dark text-white w-100">Market Value Pricer Used: {{get_user_autoprice_count(session['username'])}}</li>
+                      <li class="list-group-item bg-dark text-white w-100">Market Value Pricer Max: {{get_max_autoprice_count(session['username'])}}</li>
+                    </ul>
+                  </div>
+                </div>
+
+
                   
 
                           

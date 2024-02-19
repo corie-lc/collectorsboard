@@ -276,6 +276,17 @@ def get_user_mem_tier(username):
         
     return "free"
 
+def get_max_autoprice_count(username):
+    tier = get_user_mem_tier(username)
+
+    if tier == "free":
+        return "40"
+    elif tier == "essentails":
+        return "400"
+    else:
+        return "Unlimited"
+    
+
 
 def get_user_autoprice_count(username):
     mydb = get_database()
@@ -284,6 +295,7 @@ def get_user_autoprice_count(username):
     cursor.execute("SELECT * FROM membership_services")
 
     for item in cursor:
+        print(username)
         if item[0] == username:
             return item[3]
         
@@ -317,3 +329,8 @@ def add_to_autoprice_count(username):
             """, (new, username))
     
     mydb.commit()
+
+
+# ------------------------------------------- #
+# MEMBERSHIP SERVICES
+    

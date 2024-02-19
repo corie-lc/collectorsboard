@@ -358,8 +358,8 @@ def follow_request():
 def get_market_eval():
     keywords = request.json['keywords']
 
-    free_max = 12
-    essentails_max = None
+    free_max = 40
+    essentails_max = 400
 
     user_max = int(accounts.get_user_autoprice_count(session['username']))
 
@@ -1001,18 +1001,22 @@ app.jinja_env.globals.update(follow_community=social.follow_community)
 app.jinja_env.globals.update(is_following_community=social.is_following_community)
 
 app.jinja_env.globals.update(get_user_info=accounts.get_user_info)
+app.jinja_env.globals.update(get_user_autoprice_count=accounts.get_user_autoprice_count)
+
+app.jinja_env.globals.update(get_user_mem_tier=accounts.get_user_mem_tier)
 app.jinja_env.globals.update(is_account_public=accounts.is_account_public)
 app.jinja_env.globals.update(is_account_public=accounts.is_account_public)
 app.jinja_env.globals.update(get_followed_communties=accounts.get_followed_communties)
 app.jinja_env.globals.update(get_avatars=accounts.get_avatars)
 app.jinja_env.globals.update(get_user_avatar=accounts.get_user_avatar)
+app.jinja_env.globals.update(get_max_autoprice_count=accounts.get_max_autoprice_count)
+
 
 app.jinja_env.globals.update(get_posts_search=search.get_posts_search)
 app.jinja_env.globals.update(get_users_search=search.get_users_search)
 app.jinja_env.globals.update(get_collection_search=search.get_collection_search)
 app.jinja_env.globals.update(searh_posts_in_collection=search.searh_posts_in_collection)
 app.jinja_env.globals.update(get_all_cat_new=search.get_all_cat_new)
-
 app.jinja_env.globals.update(get_user_notis=notif.get_user_notis)
 
 
