@@ -2,12 +2,13 @@ import traceback
 from datetime import datetime
 
 import flask
-from flask import Flask, get_template_attribute, jsonify
+from flask import Flask, get_template_attribute, jsonify, send_from_directory
 from flask import Flask, render_template, redirect, request, session, url_for
 from flask_session import Session
 from flask import flash
 from gevent.pywsgi import WSGIServer
 from gevent import monkey
+
 
 from helpers import accounts, collections, posts_entrys, social, search, doadmin, average_price, notif, support, front_end_help
 
@@ -1022,6 +1023,12 @@ app.jinja_env.globals.update(searh_posts_in_collection=search.searh_posts_in_col
 app.jinja_env.globals.update(get_all_cat_new=search.get_all_cat_new)
 
 app.jinja_env.globals.update(get_user_notis=notif.get_user_notis)
+
+
+@app.route('/robots.txt')
+@app.route('/sitemap.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 if __name__ == '__main__':
     http = WSGIServer(('127.0.0.1', 5000), app.wsgi_app)
