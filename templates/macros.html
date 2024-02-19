@@ -1878,7 +1878,7 @@
         {{para1}}
     </div>
     <div class="card-body bg-dark text-white w-100">
-        <img style="width: 86px;" class="rounded-circle shadow-4-strong" alt="avatar2" src='{{ get_user_avatar(para1) }}' />
+        <img id="user_avatar" style="width: 86px;" class="rounded-circle shadow-4-strong" alt="avatar2" src='{{ get_user_avatar(para1) }}' />
         <P>{{get_user_info(para1)[3]}}</P>
 
         {% if get_user_info(para1) == "False" %}
