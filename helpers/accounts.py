@@ -78,8 +78,6 @@ def login(username, password):
     cursor.execute("SELECT * FROM users")
 
     for user in cursor:
-        print(username)
-        print(password)
         if user[0] == username and verify_password(user[2], password, username):
             return True
         elif user[1] == username and verify_password(user[2], password, username):
@@ -153,7 +151,6 @@ def get_user_info(username):
         elif user[1] == username:
             return user
         
-    print("False")
     return "False"
 
 

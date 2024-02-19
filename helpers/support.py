@@ -3,7 +3,6 @@ import os
 
 
 def send_support_email(from_who, username, support_type, message, logged_in):
-    print(from_who)
     if logged_in:
         return requests.post(
             os.environ['mailgun_full'],

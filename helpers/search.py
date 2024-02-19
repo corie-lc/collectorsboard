@@ -40,7 +40,6 @@ def get_collection_search(keyword):
 
 
 def get_community_search(keyword):
-    print(keyword)
     communties = []
     q = []
 
@@ -52,7 +51,6 @@ def get_community_search(keyword):
         if item[5] not in communties:
             communties.append(item[5])
 
-    print(communties)
 
     for item in communties:
         if str(keyword).lower() in str(item).lower():

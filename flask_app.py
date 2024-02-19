@@ -510,7 +510,6 @@ def more_collectionview_feed():
     data = ""
 
     posts = collections.get_collection_posts(id, session['username'], number)
-    print(posts)
 
     for item in posts:
         hello = get_template_attribute('macros.html', 'post_block')
@@ -529,7 +528,6 @@ def more_collectionview_feed_guest():
     data = ""
 
     posts = collections.get_collection_posts(id, '@guest_unusable_1190090', number)
-    print(posts)
 
     for item in posts:
         hello = get_template_attribute('macros.html', 'post_block_guest')
@@ -601,7 +599,6 @@ def more_feed_collection():
 def get_user_feed():
     number = request.json['number']
     posts = posts_entrys.get_feed_posts(session['username'], number)
-    print(posts)
     data = ""
 
     for item in posts:
@@ -617,7 +614,6 @@ def get_user_feed():
 def get_toppost_feed():
     number = request.json['number']
     posts = posts_entrys.get_top_posts(session['username'], number)
-    print(posts)
     data = ""
 
     for item in posts:
@@ -625,7 +621,6 @@ def get_toppost_feed():
         data += hello(item)
 
     if data == "":
-        print("none")
         data = "none"
 
     return jsonify(data, number)
@@ -635,7 +630,6 @@ def get_toppost_feed():
 def your_communities_posts():
     number = request.json['number']
     posts = posts_entrys.get_related_community_posts(session['username'], number)
-    print(posts)
     data = ""
 
     for item in posts:
@@ -643,7 +637,6 @@ def your_communities_posts():
         data += hello(item)
 
     if data == "":
-        print("none")
         data = "none"
 
     return jsonify(data, number)
@@ -654,7 +647,6 @@ def get_comunity_posts():
     
     number = request.json['number']
     posts = posts_entrys.get_top_community_post(request.json['community'], session['username'], number)
-    print(posts)
     data = ""
 
     for item in posts:
@@ -662,7 +654,6 @@ def get_comunity_posts():
         data += hello(item)
 
     if data == "":
-        print("none")
         data = "none"
 
     return jsonify(data, number)

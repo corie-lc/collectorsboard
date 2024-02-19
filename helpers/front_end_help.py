@@ -11,6 +11,5 @@ def create_tagged_text(text):
                 list_of_text[counter] = f'<a href="/viewuser/' + username + '>' + username + '</a>'
         counter+=1
 
-    print(list_of_text)
    # return ''.join(list_of_text
     return '<a href="corie.html">aaok<a>'

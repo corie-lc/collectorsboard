@@ -41,7 +41,6 @@ def upload_file(file_name, actual_file, object_name=None):
                             aws_secret_access_key=SECRET_KEY)
 
     # Upload a file to your Space
-    print(actual_file)
     from werkzeug.utils import secure_filename
 
     client.upload_fileobj(
@@ -60,13 +59,10 @@ def create_password(password):
     salt = bcrypt.gensalt(rounds=12)
     # Hashing the password
     hashed = bcrypt.hashpw(password.encode("utf-8"), salt)
-    print(hashed)
     return hashed
 
 
 def verify_password(password, entered_password, username):
-    print(accounts.get_user_info(username))
-
     return bcrypt.checkpw(entered_password.encode("utf-8"), accounts.get_user_info(username)[2].encode("utf-8"))
 
 
