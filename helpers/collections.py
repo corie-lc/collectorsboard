@@ -60,13 +60,10 @@ def get_collection_posts(collection_id, username, start_at=-1):
     posts = []
 
     if start_at > -1:
-        print(start_at)
         start_at_posts = Reverse(cursor.fetchall())
-        print(len(start_at_posts))
         i = start_at
         
         while i < start_at + 4 and i < len(start_at_posts):
-            print(i)
             post_info = posts_entrys.get_post_by_id(start_at_posts[i][0])
 
             if username == post_info[4]:

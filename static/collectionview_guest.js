@@ -51,7 +51,6 @@ function buildThresholdList() {
 }
 
 function handleStuff(observer){
-    console.time('doSomething')
 
     var currentLocation = window.location;
     const urlArray = currentLocation.toString().split("/");
@@ -65,7 +64,7 @@ function handleStuff(observer){
             success: function(data) {
 
                 if(data[0] == "none"){
-                    document.querySelector("#observer").innerHTML = "No More Posts :("
+                    document.querySelector("#observer").innerHTML = "Nothing else :("
                 } else{
 
                     var doc = new DOMParser().parseFromString(data[0], "text/html")
@@ -83,7 +82,6 @@ function handleStuff(observer){
                         list_p.push(doc.getElementById("div-post").getAttribute("value"))
                     }
 
-                    console.timeEnd('doSomething')
 
                     observer.observe(boxElement)
 

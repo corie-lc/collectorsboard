@@ -206,7 +206,6 @@ def get_top_posts(username, start_at=-1):
     public_posts = count_liked_post_lists(list(cursor))
 
     posts = []
-    print(start_at)
 
     followed_communities = accounts.get_followed_communties(username)
 
@@ -215,8 +214,6 @@ def get_top_posts(username, start_at=-1):
         i = start_at
         while i < len(public_posts):
             if i < start_at + 4:
-                print("popular post")
-                print(i)
 
                 posts.append(public_posts[i])
                 i += 1
@@ -276,7 +273,6 @@ def get_feed_posts(username, start_at = -1):
 
 
     posts = []
-    print(start_at)
 
     followed_communities = accounts.get_followed_communties(username)
 
@@ -285,8 +281,6 @@ def get_feed_posts(username, start_at = -1):
         i = start_at
         while i < len(public_posts):
             if i < start_at + 4:
-                print("popular post")
-                print(i)
 
                 posts.append(public_posts[i])
                 i += 1
@@ -579,7 +573,6 @@ def get_community_post(community, username):
             elif social.is_follow(username, item[4]) == True and item[7] == "on":
                 posts.append(item)
 
-    print(posts)
     return posts
 
 
@@ -710,18 +703,13 @@ def get_related_community_posts(username, start_at = -1):
     cursor.execute(statmt, ("public", "on"))
 
 
-    print("comminty posts")
     community_posts = []
 
     for item in list(cursor):
-        print(item[1])
-        print(related_communties)
         if item[1] in related_communties:
             community_posts.append(item)
 
-    print(community_posts)
             
-    print("tryinh here")
     posts_to_send = []
     rec_posts = []
 
@@ -729,8 +717,6 @@ def get_related_community_posts(username, start_at = -1):
         i = start_at
         while i < len(community_posts):
             if i < start_at + 4:
-                print("popular post")
-                print(i)
 
 
                 posts_to_send.append(community_posts[i])

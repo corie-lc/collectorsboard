@@ -65,7 +65,7 @@ function handleStuff(observer){
             success: function(data) {
 
                 if(data[0] == "none"){
-                    document.querySelector("#observer").innerHTML = "No More Posts :("
+                    document.querySelector("#observer").innerHTML = "Nothing else :("
                 } else{
 
                     var doc = new DOMParser().parseFromString(data[0], "text/html")
