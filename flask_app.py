@@ -648,6 +648,26 @@ def your_communities_posts():
     return jsonify(data, number)
 
 
+@app.route('/get_comunity_posts', methods=['POST', 'GET'])
+def get_comunity_posts():
+    
+    number = request.json['number']
+    posts = posts_entrys.get_top_community_post(request.json['community'], session['username'], number)
+    print(posts)
+    data = ""
+
+    for item in posts:
+        hello = get_template_attribute('macros.html', 'post_block')
+        data += hello(item)
+
+    if data == "":
+        print("none")
+        data = "none"
+
+    return jsonify(data, number)
+
+
+
 @app.route('/more_feed', methods=['POST', 'GET'])
 def more_feed():
     start = time.time()

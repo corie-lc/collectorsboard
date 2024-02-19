@@ -156,7 +156,6 @@ function handleIntersectCommunity(entries, observer) {
                         var duplicate = false;
 
                         if (list_pCommunityPosts.includes(doc.getElementById("div-post").getAttribute("value"))) {
-                            counterRecCommunityPosts = (Number(data[1]) + 1);
                             console.log("failed lol")
                             duplicate = true;
                         }

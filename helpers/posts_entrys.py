@@ -155,24 +155,41 @@ def get_all_viewable_posts(username):
     return posts
 
 
-def get_top_community_post(community, username):
+def get_top_community_post(community, username, start_at=-1):
     posts = []
 
     mydb = get_database()
 
     cursor = mydb.cursor()
-    statmt_collection = "SELECT * FROM posts where community = %s"
-    cursor.execute(statmt_collection, (community,))
+
+    statmt = "select * FROM posts WHERE user_public = %s and visability = %s and community = %s"
+    cursor.execute(statmt, ("public", "on", community))
+
+    community_posts = list(cursor)
+
+    if start_at > -1:
+        i = start_at
+        while i < len(community_posts):
+            if i < start_at + 4:
+
+                posts.append(community_posts[i])
+                i += 1
+            else:
+                break
 
 
-    for item in cursor:
-        if item[1] == community:
-            if accounts.is_account_public(item[4]) == False:
-                pass
-            elif item[14] == "public" and item[7] == "on":
-                posts.append(item)
-            elif social.is_follow(username, item[4]) == True and item[7] == "on":
-                posts.append(item)
+        
+    else:
+
+
+        for item in cursor:
+            if item[1] == community:
+                if accounts.is_account_public(item[4]) == False:
+                    pass
+                elif item[14] == "public" and item[7] == "on":
+                    posts.append(item)
+                elif social.is_follow(username, item[4]) == True and item[7] == "on":
+                    posts.append(item)
 
     all = count_liked_post_lists(posts)
 
