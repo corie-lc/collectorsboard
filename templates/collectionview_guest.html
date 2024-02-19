@@ -36,6 +36,18 @@
       $(document).ready(function() {
         $('.js-example-basic-single').select2();
     });
+
+    function copyLink() {
+      var copyText = document.getElementById("copylink_input");
+
+      // Select the text field
+      copyText.select();
+      copyText.setSelectionRange(0, 99999); // For mobile devices
+
+      // Copy the text inside the text field
+      navigator.clipboard.writeText(copyText.value);
+      document.getElementById("copyButton").innerHTML = "Copied!"
+    }
     </script>
 
 
@@ -127,9 +139,17 @@
                     {% elif get_collection_byid(para1)[6] != None %}
                       <span id="value_id" class="badge bg-danger">${{get_collection_byid(para1)[6]}}</span>
                       {% endif %}
+
+                      <div class="input-group mb-3 mt-3">
+                        <div class="input-group-prepend">
+                          <button id="copyButton" onclick="copyLink()" class="btn btn-outline-secondary bg-primary text-white" type="button">Copy Link</button>
+                        </div>
+                        <input id="copylink_input" type="text" class="form-control bg-dark text-white" placeholder="collectorsboard.live/collectionview/{{para1}}" value="collectorsboard.live/collectionview/{{para1}}"aria-label="" aria-describedby="basic-addon1" disabled>
+                      </div>
                     
 
                 </div>
+                
                   {% if get_collection_byid(para1)[3] == session['username']%}
 
               <button class="btn btn-primary w-100 border-0 border-white" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExampleCollection" aria-expanded="false" aria-controls="collapseExampleCollection">
@@ -177,6 +197,8 @@
                       </div>
                     </div>
             {% endif %}
+            
+
                 </div>
 
 
