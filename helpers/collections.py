@@ -41,6 +41,8 @@ def get_collection_posts_full(collection_id):
     for item in posts:
         list_posts.append(posts_entrys.get_post_by_id(item))
 
+    print(list_posts)
+
     return list_posts
 
 
@@ -65,7 +67,7 @@ def get_collection_posts(collection_id, username, start_at=-1):
         start_at_posts = []
 
         for item in list(cursor.fetchall()):
-            if  posts_entrys.get_post_by_id(item[0]) != None:
+            if  posts_entrys.get_post_by_id(item[0]) != None and is_post_pinned_to_collection(collection_id, item[0]) == False:
                 start_at_posts.append(item)
 
         start_at_posts = Reverse(start_at_posts)
@@ -481,3 +483,7 @@ def is_pinned_at_max(collection_id, username):
             return "At Max"
         else:
             return "Under Max"
+        
+
+def count_items_in_collection(collection_id):
+    return len(get_collection_posts_full(collection_id))

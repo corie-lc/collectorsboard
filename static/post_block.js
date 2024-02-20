@@ -342,17 +342,8 @@ function makePost(){
 
 function pinPostCollection(post_id, collection_id, pin_or_unpin){
 
-  value = document.getElementById(post_id+"_pin_value").getAttribute('value')
-
-  if(value === "unpin"){
-    document.getElementById(post_id+"_pin_value").className = "dropdown-item"
-    document.getElementById(post_id+"_pin_value").innerHTML = "Pin"
-    document.getElementById(post_id+"_pin_value").value = "pin"
-  } else{
-    document.getElementById(post_id+"_pin_value").innerHTML = "Unpin"
-    document.getElementById(post_id+"_pin_value").className = "dropdown-item bg-primary"
-    document.getElementById(post_id+"_pin_value").value = "unpin"
-  }
+  document.getElementById(post_id+"_pin_value").innerHTML = "Loading..Wait"
+  document.getElementById(post_id+"_pin_value").disabled = true
 
   $.ajax({
     type: "POST",
@@ -361,6 +352,25 @@ function pinPostCollection(post_id, collection_id, pin_or_unpin){
     contentType: 'application/json; charset=utf-8',
     data: JSON.stringify({post_id:  post_id, collection_id: collection_id, pin_or_unpin: value}),
     success: function(data) {
+      value = document.getElementById(post_id+"_pin_value").getAttribute('value')
+
+      document.getElementById(post_id+"_pin_value").disabled = false
+      if(data === "At Max"){
+        document.getElementById(post_id+"_pin_value").innerHTML = "Pin (At Max)"
+        document.getElementById(post_id+"_pin_value").value = "pin"
+      } else{
+        if(value === "unpin"){
+          document.getElementById(post_id+"_pin_value").className = "dropdown-item"
+          document.getElementById("badge5-pinned-" + post_id).style="display: none"
+          document.getElementById(post_id+"_pin_value").innerHTML = "Pin"
+          document.getElementById(post_id+"_pin_value").value = "pin"
+        } else{
+          document.getElementById(post_id+"_pin_value").innerHTML = "Unpin"
+          document.getElementById("badge5-pinned-" + post_id).style="display: block"
+          document.getElementById(post_id+"_pin_value").className = "dropdown-item bg-primary"
+          document.getElementById(post_id+"_pin_value").value = "unpin"
+        }
+      }
         console.log("sucesss done")
     }
   });

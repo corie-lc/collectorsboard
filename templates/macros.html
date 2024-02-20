@@ -438,37 +438,19 @@
 
                              <li><hr class="dropdown-divider"></li>
 
-                             {% if pinned_allowance == "Under Max" %}
-
                               {% if post_pinned_to_collection == True %}
                                 <button id="{{post[2]}}_pin_value" class="dropdown-item bg-primary" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="unpin">
-                                  Unpin
+                                  Unpin (Will Refresh)
                                 </button>
                               {% else %}
 
                                 <button id="{{post[2]}}_pin_value" class="dropdown-item" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="pin">
-                                  Pin This Item
+                                  Pin (Will Refresh)
                                 </button>
 
                                 {%endif%}
-                                {%else%}
-
-
-                                {% if post_pinned_to_collection == True %}
-                                <button id="{{post[2]}}_pin_value" class="dropdown-item bg-primary" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="unpin">
-                                  Unpin
-                                </button>
-                              {% else %}
-
-                                <button id="{{post[2]}}_pin_value" class="dropdown-item" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="pin" disabled>
-                                  At Max: Upgrade
-                                </button>
-
-
                                 
-                                {%endif%}
                               {%endif%}
-                            {% endif %}
 
 
 
@@ -521,8 +503,10 @@
 
               
               {% if post_pinned_to_collection == True %}
-                <span id="badge5-pinned-{{post[2]}}" class="badge bg-warning ms-3">Pinned</span>
-  
+                <span id="badge5-pinned-{{post[2]}}" style="display: block" class="badge bg-warning ms-3 me-2">Pinned</span>
+              {% else %}
+              <span id="badge5-pinned-{{post[2]}}" style="display: none" class="badge bg-warning ms-3 me-2">Pinned</span>
+
               {% endif %}
               {% if post[9] != "no data" %}
                 <span id="badge1-{{post[2]}}" class="badge bg-primary ms-3">{{post[9]}}</span>
@@ -814,7 +798,11 @@
 
               
               {% if post_pinned_to_collection == True %}
-              <span id="badge5-pinned-{{post[2]}}" class="badge bg-warning ms-3">Pinned</span>
+                <span id="badge5-pinned-{{post[2]}}" style="display: block" class="badge bg-warning ms-3 me-2">Pinned</span>
+              {% else %}
+              <span id="badge5-pinned-{{post[2]}}" style="display: none" class="badge bg-warning ms-3 me-2">Pinned</span>
+
+              {% endif %}
 
               {% endif %}
               {% if post[9] != "no data" %}
@@ -1825,7 +1813,7 @@
 
 <div id="div-collection" class="card w-100 bg-dark">
   <div class="card-body">
-    <h5 class="card-title text-white"> {{collection[5]}} | {{ collection[0] }}</h5>
+    <h5 class="card-title text-white"> {{collection[5]}} | {{ collection[1] }} Items</h5>
   </br>
     <a  class="card-subtitle mb-2 text-muted" href="/viewuser/{{collection[3]}}">{{ collection[3] }}
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right" viewBox="0 0 16 16">
@@ -1833,7 +1821,7 @@
     </svg>
 
     </a>
-    <p class="card-text text-white">{{ collection[4] }}</p>
+    <p class="card-text text-white">{{ collection[4] }} | {{ count_items_in_collection(collection[3]) }}</p>
     <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary">View</a>
 
       {% if is_collection_saved(session['username'], collection[1]) %}
@@ -1896,7 +1884,7 @@
     <h5 class="card-title text-white"> Collection | {{ collection[0] }}</h5>
   </br>
     <h6 class="card-subtitle mb-2 text-muted">{{ collection[3] }}</h6>
-    <p class="card-text text-white">{{ collection[4] }}</p>
+    <p class="card-text text-white">{{ collection[4] }} | {{ count_items_in_collection(collection[3]) }}</p>
     <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary">View</a>
 
       {% if is_collection_saved(session['username'], collection[1]) %}

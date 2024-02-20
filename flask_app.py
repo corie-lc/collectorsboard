@@ -948,8 +948,11 @@ def pin_or_unpin_post():
 
 
     if pin_or_unpin == "pin":
-        print("pin")
-        collections.pin_to_collection(collection_id, post_id)
+        if collections.is_pinned_at_max(collection_id, session['username']) ==  "At Max":
+            return jsonify("At Max")
+        else:
+            print("pin")
+            collections.pin_to_collection(collection_id, post_id)
     else:
         print("unpin")
         collections.un_pin_from_collection(collection_id, post_id)
@@ -1012,6 +1015,8 @@ app.jinja_env.globals.update(get_user_collections=collections.get_user_collectio
 app.jinja_env.globals.update(is_post_pinned_to_collection=collections.is_post_pinned_to_collection)
 app.jinja_env.globals.update(get_pinned_posts=collections.get_pinned_posts)
 app.jinja_env.globals.update(is_pinned_at_max=collections.is_pinned_at_max)
+app.jinja_env.globals.update(count_items_in_collection=collections.count_items_in_collection)
+
 
 
 
