@@ -127,7 +127,7 @@
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address OR username</label>
                   <input  class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="emailHelp" name='login-username'>
-                  <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+                  <div id="emailHelp" class="form-text">By logging in, you agree to our <a href="/privacypolicy"> privacy policy and user terms of use. </div>
                 </div>
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label bg-dark text-white">Password</label>
@@ -165,7 +165,7 @@
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label bg-dark text-white" style="color: white">Email address</label>
                   <input name='email' type="email" class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                  <div id="emailHelp" class="form-text">By signing up, you agree to our <a href="/privacypolicy"> privacy policy </a></div>
+                  <div id="emailHelp" class="form-text">By signing up, you agree to our <a href="/privacypolicy"> privacy policy and user terms of use. </a></div>
                 </div>
                 {% if session["logged_in"] == "used_username" %}
                         <p style="color: red">This username is already in use!</p>
