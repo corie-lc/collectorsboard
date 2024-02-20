@@ -531,7 +531,7 @@ def more_collectionview_feed_guest():
 
     for item in posts:
         hello = get_template_attribute('macros.html', 'post_block_guest')
-        data += hello(item)
+        data += hello(item, collection_id=id)
 
     if data == "":
         data = "none"
