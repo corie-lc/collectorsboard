@@ -513,7 +513,7 @@ def more_collectionview_feed():
 
     for item in posts:
         hello = get_template_attribute('macros.html', 'post_block')
-        data += hello(item)
+        data += hello(item, collection_id=id)
 
     if data == "":
         data = "none"
@@ -938,6 +938,25 @@ def save_collection():
 
     return render_template('a.html')
 
+@app.route('/pin_or_unpin_post', methods=["POST", "GET"])
+def pin_or_unpin_post():
+    collection_id = request.json['collection_id']
+    post_id = request.json['post_id']
+    pin_or_unpin = request.json['pin_or_unpin']
+
+    print(pin_or_unpin)
+
+
+    if pin_or_unpin == "pin":
+        print("pin")
+        collections.pin_to_collection(collection_id, post_id)
+    else:
+        print("unpin")
+        collections.un_pin_from_collection(collection_id, post_id)
+        
+
+    return jsonify("done")
+
 
 @app.route('/delete_collection', methods=["POST", "GET"])
 def delete_collection():
@@ -990,6 +1009,12 @@ app.jinja_env.globals.update(get_collection_byid=collections.get_collection_byid
 app.jinja_env.globals.update(get_collections_by_community=collections.get_collections_by_community)
 app.jinja_env.globals.update(get_feed_collections=collections.get_feed_collections)
 app.jinja_env.globals.update(get_user_collections=collections.get_user_collections)
+app.jinja_env.globals.update(is_post_pinned_to_collection=collections.is_post_pinned_to_collection)
+app.jinja_env.globals.update(get_pinned_posts=collections.get_pinned_posts)
+app.jinja_env.globals.update(is_pinned_at_max=collections.is_pinned_at_max)
+
+
+
 
 app.jinja_env.globals.update(is_follow=social.is_follow)
 app.jinja_env.globals.update(get_followers=social.get_followers)

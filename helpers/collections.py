@@ -60,11 +60,21 @@ def get_collection_posts(collection_id, username, start_at=-1):
     posts = []
 
     if start_at > -1:
-        start_at_posts = Reverse(cursor.fetchall())
+        
+
+        start_at_posts = []
+
+        for item in list(cursor.fetchall()):
+            if  posts_entrys.get_post_by_id(item[0]) != None:
+                start_at_posts.append(item)
+
+        start_at_posts = Reverse(start_at_posts)
         i = start_at
         
         while i < start_at + 4 and i < len(start_at_posts):
+            
             post_info = posts_entrys.get_post_by_id(start_at_posts[i][0])
+
 
             if username == post_info[4]:
                 posts.append(start_at_posts[i])
@@ -366,3 +376,108 @@ def value_collection(collection_id, username):
             total = float(item[12]) + total
 
     return round(total, 2)
+
+def get_amount_of_pinned_posts_in_collection(collection_id):
+    mydb = get_database()
+
+    cursor = mydb.cursor(buffered=True)
+
+    statmt_collection = "SELECT * FROM collection_pinned_posts WHERE collection_id = %s"
+    cursor.execute(statmt_collection, (collection_id,))
+
+
+    if cursor.fetchone() < 0:
+        return 0
+    else:
+        return len(list(cursor))
+    
+
+  
+
+def is_post_pinned_to_collection(collection_id, post_id):
+    mydb = get_database()
+
+    cursor = mydb.cursor(buffered=True)
+
+    statmt_collection = "SELECT * FROM collection_pinned_posts WHERE collection_id = %s and post_id = %s"
+    cursor.execute(statmt_collection, (collection_id, post_id))
+
+    if cursor.fetchone() != None:
+        return True
+    else:
+        return False
+
+
+def pin_to_collection(collection_id, post_id, sort_id=0):
+
+    mydb = get_database()
+
+    cursor = mydb.cursor(buffered=True)
+
+    cursor.execute('''
+        
+        INSERT INTO collection_pinned_posts
+        VALUES (%s, %s, %s);
+    
+    ''', (collection_id, post_id, sort_id))
+
+    mydb.commit()
+
+def un_pin_from_collection(collection_id, post_id, sort_id=0):
+
+    # sorting is not supported yet.
+
+    mydb = get_database()
+
+    cursor = mydb.cursor(buffered=True)
+
+    sql = "DELETE FROM collection_pinned_posts WHERE post_id = %s and collection_id = %s"
+    adr = (post_id, collection_id)
+
+    cursor.execute(sql, adr)
+    mydb.commit()
+
+    mydb.commit()
+
+
+def get_pinned_posts(collection_id):
+    mydb = get_database()
+
+    cursor = mydb.cursor(buffered=True)
+
+    statmt_collection = "SELECT * FROM collection_pinned_posts WHERE collection_id = %s"
+    cursor.execute(statmt_collection, (collection_id, ))
+
+    new_list = []
+
+    all = cursor.fetchall()
+
+    new_list = []
+
+    for item in all:
+        new_list.append(posts_entrys.get_post_by_id(item[1]))
+
+
+    return new_list
+   
+    
+def is_pinned_at_max(collection_id, username):
+    tier = accounts.get_user_mem_tier(username)
+
+    current_pinned_collection = len(get_pinned_posts(collection_id))
+
+    if tier == "free":
+        if current_pinned_collection >= 2:
+            return "At Max"
+        else:
+            return "Under Max"
+    elif tier == "essentails":
+        if current_pinned_collection >= 5:
+            return "At Max"
+        else:
+            return "Under Max"
+    else:
+        if current_pinned_collection >= 8:
+            return "At Max"
+        else:
+            return "Under Max"

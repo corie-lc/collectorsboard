@@ -339,3 +339,34 @@ function makePost(){
   }
 }
 
+
+function pinPostCollection(post_id, collection_id, pin_or_unpin){
+
+  value = document.getElementById(post_id+"_pin_value").getAttribute('value')
+
+  if(value === "unpin"){
+    document.getElementById(post_id+"_pin_value").className = "dropdown-item"
+    document.getElementById(post_id+"_pin_value").innerHTML = "Pin"
+    document.getElementById(post_id+"_pin_value").value = "pin"
+  } else{
+    document.getElementById(post_id+"_pin_value").innerHTML = "Unpin"
+    document.getElementById(post_id+"_pin_value").className = "dropdown-item bg-primary"
+    document.getElementById(post_id+"_pin_value").value = "unpin"
+  }
+
+  $.ajax({
+    type: "POST",
+    dataType: "json",
+    url: "/pin_or_unpin_post",
+    contentType: 'application/json; charset=utf-8',
+    data: JSON.stringify({post_id:  post_id, collection_id: collection_id, pin_or_unpin: value}),
+    success: function(data) {
+        console.log("sucesss done")
+    }
+  });
+
+
+
+
+
+}

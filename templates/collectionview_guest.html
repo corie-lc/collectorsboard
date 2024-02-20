@@ -225,6 +225,13 @@
                     </div>
                 </div>
 
+                {% for post in get_pinned_posts(para1) %}
+
+                {% from 'macros.html' import post_block %}
+                {{ post_block(post, 1, collection_id=para1) }}
+
+                {%endfor%}
+
                
                   
                   </div>

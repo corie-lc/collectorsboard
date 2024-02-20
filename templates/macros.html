@@ -303,7 +303,7 @@
 
 
 
-{% macro post_block(post, post_type=0) %}
+{% macro post_block(post, post_type=0, collection_id="0") %}
 
 
 
@@ -345,11 +345,30 @@
         {% set modal_name = "exampleModal2" %}
     {% endif %}
 
+    {% set post_pinned_to_collection = False %}
+    {% set pinned_allowance = "Under Max" %}
+
+
+    {% if is_post_pinned_to_collection(collection_id, post[2]) == True %}
+      {% set post_pinned_to_collection = True %}
+    {% endif %}
+
+    {% if is_pinned_at_max(collection_id, session['username']) == "At Max"%}
+      {% set pinned_allowance = "At Max" %}
+    {%endif%}
+
+
+
+
+
+
+
 
 
     <div id="div-post" name="{{ post_var }}" value="{{post[2]}}" class="card mt-4 bg-dark">
 
         <div class="card-header bg-dark text-white float-start" id="{{post[2]}}" value="{{post[2]}}">
+          
 
           <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
               <div class="container-fluid">
@@ -366,6 +385,8 @@
                         +/-
                       </a>
                       <ul class="dropdown-menu dropdown-menu-dark bg-dark" aria-labelledby="navbarDropdown">
+
+                      
 
 
                          {% for collection in get_user_collections(session['username']) %}
@@ -412,6 +433,43 @@
                               Edit
                             </button>
 
+                            {% if collection_id != "0" %}
+
+
+                             <li><hr class="dropdown-divider"></li>
+
+                             {% if pinned_allowance == "Under Max" %}
+
+                              {% if post_pinned_to_collection == True %}
+                                <button id="{{post[2]}}_pin_value" class="dropdown-item bg-primary" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="unpin">
+                                  Unpin
+                                </button>
+                              {% else %}
+
+                                <button id="{{post[2]}}_pin_value" class="dropdown-item" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="pin">
+                                  Pin This Item
+                                </button>
+
+                                {%endif%}
+                                {%else%}
+
+
+                                {% if post_pinned_to_collection == True %}
+                                <button id="{{post[2]}}_pin_value" class="dropdown-item bg-primary" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="unpin">
+                                  Unpin
+                                </button>
+                              {% else %}
+
+                                <button id="{{post[2]}}_pin_value" class="dropdown-item" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="pin" disabled>
+                                  At Max: Upgrade
+                                </button>
+
+
+                                
+                                {%endif%}
+                              {%endif%}
+                            {% endif %}
+
 
 
                           {%endif%}
@@ -440,6 +498,8 @@
 
             {%endif%}
 
+          
+
             
           </div>
         </div>
@@ -460,7 +520,10 @@
             <div style="overflow-x: scroll" class="text-nowrap  w-100 tags-wall" id="tags-c-{{ post[2] }}">
 
               
-
+              {% if post_pinned_to_collection == True %}
+                <span id="badge5-pinned-{{post[2]}}" class="badge bg-warning ms-3">Pinned</span>
+  
+              {% endif %}
               {% if post[9] != "no data" %}
                 <span id="badge1-{{post[2]}}" class="badge bg-primary ms-3">{{post[9]}}</span>
                {% else %}
@@ -959,7 +1022,7 @@
       }
       }
     });;
-  }, 70000);
+  }, 30000000);
 
   $(document).ready(function() {
     $("#select2insidemodal").select2({
