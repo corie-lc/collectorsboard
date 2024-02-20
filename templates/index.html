@@ -172,7 +172,7 @@
                     {% elif session["logged_in"] == "used_email" %}
                         <p style="color: red">This email is already in use!</p>
                     {% elif session["logged_in"] == "invalid" %}
-                        <p style="color: red">This email is already in use!</p>
+                        <p style="color: red">Invalid characters. Do NOT use any spaces, @, (), +, =, *, &, ^, %, $, #, !, [], ', ", /, ., ?, |</p>
                     {% endif %}
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label bg-dark text-white " style="color: white">Password</label>
