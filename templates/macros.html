@@ -440,12 +440,12 @@
 
                               {% if post_pinned_to_collection == True %}
                                 <button id="{{post[2]}}_pin_value" class="dropdown-item bg-primary" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="unpin">
-                                  Unpin (Will Refresh)
+                                  Unpin
                                 </button>
                               {% else %}
 
                                 <button id="{{post[2]}}_pin_value" class="dropdown-item" type="button" onclick="pinPostCollection('{{post[2]}}', '{{collection_id}}')" value="pin">
-                                  Pin (Will Refresh)
+                                  Pin
                                 </button>
 
                                 {%endif%}

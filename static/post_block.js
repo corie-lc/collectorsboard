@@ -342,8 +342,15 @@ function makePost(){
 
 function pinPostCollection(post_id, collection_id, pin_or_unpin){
 
+  value = document.getElementById(post_id+"_pin_value").getAttribute('value')
   document.getElementById(post_id+"_pin_value").innerHTML = "Loading..Wait"
   document.getElementById(post_id+"_pin_value").disabled = true
+
+  if(value === "unpin"){
+    document.getElementById(post_id+"_pin_value").value = "pin"
+  } else{
+    document.getElementById(post_id+"_pin_value").value = "unpin"
+  }
 
   $.ajax({
     type: "POST",
@@ -352,7 +359,6 @@ function pinPostCollection(post_id, collection_id, pin_or_unpin){
     contentType: 'application/json; charset=utf-8',
     data: JSON.stringify({post_id:  post_id, collection_id: collection_id, pin_or_unpin: value}),
     success: function(data) {
-      value = document.getElementById(post_id+"_pin_value").getAttribute('value')
 
       document.getElementById(post_id+"_pin_value").disabled = false
       if(data === "At Max"){
