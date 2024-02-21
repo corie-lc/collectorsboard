@@ -112,6 +112,8 @@
   {% from 'macros.html' import navbar_block %}
   {{ navbar_block() }}
 
+  {% set pinned_posts = get_pinned_posts(para1) %}
+
 
 
       
@@ -225,7 +227,7 @@
                     </div>
                 </div>
 
-                {% for post in get_pinned_posts(para1) %}
+                {% for post in pinned_posts %}
 
                 {% from 'macros.html' import post_block_guest %}
                 {{ post_block_guest(post, 1, collection_id=para1) }}
