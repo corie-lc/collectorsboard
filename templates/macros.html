@@ -1945,7 +1945,7 @@
           </div>
         </div>
 
-        {%else%}
+        {% elif para1 != session['username'] %}
 
 
           {% set ns = is_follow(session['username'], para1) %}
@@ -1984,8 +1984,8 @@
                                       <li><button id="follow_action_button" onclick="followRequest('follow','{{ para1 }}')" class="dropdown-item text-white control-button-user" >Follow</button></li>
                                   {% endif %}
 
-                                <li><a class="dropdown-item text-white control-button-user" href="#" disabled>Block</a></li>
-                                <li><a class="dropdown-item text-white control-button-user" href="#" disabled>Message</a></li>
+                                <li disabled><a class="dropdown-item text-white control-button-user" href="#" disabled>Block</a></li>
+                                <li disabled><a class="dropdown-item text-white control-button-user" href="#" disabled>Message</a></li>
                               </ul>
                             </div>
                             {% endif %}
