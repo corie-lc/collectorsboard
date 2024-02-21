@@ -127,8 +127,8 @@
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label">Email address OR username</label>
                   <input  class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="emailHelp" name='login-username'>
-                  <div id="emailHelp" class="form-text">By logging in, you agree to our <a href="/privacypolicy"> privacy policy and user terms of use. </div>
                 </div>
+
                 <div class="mb-3">
                   <label for="exampleInputPassword1" class="form-label bg-dark text-white">Password</label>
                   <input type="password" class="form-control bg-dark text-white" id="exampleInputPassword1" name='login-password'>
@@ -143,7 +143,10 @@
           
 
         </div>
+        <div id="emailHelp" class="form-text mb-2 mt-2">By signing up or logging in, you agree to our <a href="/privacypolicy"> privacy policy and user terms of use. </a></div>
     </div>
+
+
 
     <div class="card text-center bg-dark mx-auto w-75" style="width: 45%; margin-top: 3%; margin-bottom: 3%;" >
 
@@ -158,14 +161,13 @@
               <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label bg-dark text-white" style="color: white">Username</label>
                 <input name="username" class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="usernameHelp" required>
-                <div id="usernameHelp" class="form-text">You must use a unique username!</a></div>
-
               </div>
+              <div id="usernameHelp" class="form-text">You must use a unique username!</a></div>
+
               
                 <div class="mb-3">
                   <label for="exampleInputEmail1" class="form-label bg-dark text-white" style="color: white">Email address</label>
                   <input name='email' type="email" class="form-control bg-dark text-white" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                  <div id="emailHelp" class="form-text">By signing up, you agree to our <a href="/privacypolicy"> privacy policy and user terms of use. </a></div>
                 </div>
                 {% if session["logged_in"] == "used_username" %}
                         <p style="color: red">This username is already in use!</p>
@@ -192,6 +194,8 @@
 
                 </button>
               </form>
+              <div id="emailHelp" class="form-text mb-2 mt-2">By signing up or logging in, you agree to our <a href="/privacypolicy"> privacy policy and user terms of use. </a></div>
+
                   </div>
     </div>
 
