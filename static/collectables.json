@@ -41,16 +41,20 @@
     "XekoCards", "XiaolinShowdownTCG", "XXX", "YoungJediCCG", "YuGiOh!", "YuYuTCG", "ZatchBellCardBattle", "ZUTiles:Hime", "ZGCard", "ZillionsOfEnemy", "FootballCards", "BaseBallCards", "BasketBallCards",
     "SoccerCards", "ToppsCards", "TrumpTradingCards", "DoomlingsCards", "Vanguard", "HearthStone", "NetRunner", "FleshAndBlood"],
     "Money": ["PaperMoney", "Coins"],
-    "Toys": ["MatchBoxCars", "HotWheelsCars", "Minichamps", "Kyosho", "Autoart", "AlmostReal", "Otto", "Bburago "],
+    "Toys": ["MatchBoxCars", "HotWheelsCars", "Minichamps", "Kyosho", "Autoart", "AlmostReal", "Otto", "Bburago", "Carlectables"],
     "Jewerly": ["Watches", "Chains", "Anklets", "Bracelets", "Rings", "Earrings", "Amulet", "Pins", "DogTags", "PrayerBeads", "PrayerRopes"],
     "Action Figures": ["GIJOEFigurs", "FunkoPops", "StarWarsFigures", "TransformersFigures"], 
     "Writings": ["NewsPapers", "Magazines", "Letters", "Books", "Transcripts"],
     "Electronics": ["Computers", "SmartPhones", "MiniComputers", "RotoryPhones", "Phones", "Chips", "SmartWatches"],
     "Transportion&Motors": ["Cars", "Trucks", "SmallMotors", "Engines", "LargeMotors", "Planes", "Boats"],
     "Remote Controls": ["RemoteControlCars", "RemoteControlPlanes", "RemoteControlBoats", "RemoteControlHelicopters", "RemoteControlAnimals", "RemoteControlRobots"],
-    "WildLife": ["Seashells", "Tusks", "ClamShells", "Antlers", "TrophyMount"]
-    
-
-
+    "WildLife": ["Seashells", "Tusks", "ClamShells", "Antlers", "TrophyMount"],
+    "Audio/Video" : ["VinylRecords", "CD's", "Projectors", "Cassettes", "VHSTapes", "Cameras", "VideoTapes"],
+    "Paper/Books" : ["Manga", "PaperbackBooks", "HardCoverBooks", "TextBooks", "StoryBooks", "Stamps"],
+    "Famous": ["Autographs", "CelebrityOwnedItems"],
+    "HouseHold": ["TableWare", "FridgeMagnets", "Furniture"],
+    "Clothes": ["Dresses", "Belts", "Skirts", "Shoes", "Boots", "Pants", "Jeans", "Socks", "Underwear"],
+    "HistoricalMemorabilia": ["NaziMemorabilia", "WWIMemorabilia", "WWIIMemorabilia", "CivilWarMemorabilia"],
+    "Weapons": ["Guns", "Swords", "Katanas", "Knives", "Bayonerts", "Missles", "Grenades", "Bombs", "Dagger", "Harpoon"]
 }
 
