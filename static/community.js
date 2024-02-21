@@ -64,7 +64,7 @@ function handleIntersect(entries, observer) {
         $.ajax({
             type: "POST",
             dataType: "json",
-            url: "/more_feed",
+            url: "/get_comunity_posts",
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify({ number: counter, type: "community_feed", community: document.getElementById("community_name").innerText,  }),
             success: function(data) {
