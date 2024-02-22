@@ -331,6 +331,9 @@ def add_to_autoprice_count(username):
     mydb.commit()
 
 
+def get_user_count():
+    return len(get_all_users())
+
+
 # ------------------------------------------- #
 # MEMBERSHIP SERVICES
-    

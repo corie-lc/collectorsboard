@@ -1041,6 +1041,7 @@ app.jinja_env.globals.update(is_following_community=social.is_following_communit
 
 app.jinja_env.globals.update(get_user_info=accounts.get_user_info)
 app.jinja_env.globals.update(get_user_autoprice_count=accounts.get_user_autoprice_count)
+app.jinja_env.globals.update(get_user_count=accounts.get_user_count)
 
 app.jinja_env.globals.update(get_user_mem_tier=accounts.get_user_mem_tier)
 app.jinja_env.globals.update(is_account_public=accounts.is_account_public)
