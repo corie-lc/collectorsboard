@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-KKDD8KZG8F"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-KKDD8KZG8F');
+</script>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>CollectorsBoard | Login</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <script src="scrollingSystems.js" type="module"></script>
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='bootstrap-5.0.2-dist/css/bootstrap.min.css') }}">
+    <script src="{{ url_for('static',filename='bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js') }}"></script>
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static',filename='favicon.ico') }}">
+
+
+</head>
+
+<style>
+    body{
+        background-color: #2c3034;
+    }
+</style>
+
+<script>
+
+  function loginClicked(){
+    console.log("here")
+      document.getElementById("loader_button_icon").style.display = "inline-block";
+      document.getElementById("login_button").disabled = true;
+  }
+
+  function signUpClicked(){
+      document.getElementById("loader_button_icon_signup").style.display = "inline-block";
+      document.getElementById("login_button").disabled = true;
+  }
+
+</script>
+
+<body>
+
+
+
+    {% from 'macros.html' import navbar_block %}
+    {{ navbar_block() }}
+
+
+
+
+
+<div class="card text-center bg-dark mx-auto w-75" style="width: 45%; margin-top: 3%; " >
+
+  <div class="card bg-dark text-white mb-3">
+    <div class="card-header bg-success">
+      CollectorsBoard is a platform where you're empowered to take control of your collections. 
+    </div>
+    <div class="card-body">
+      CollectorsBoard offers an alternative to those boring forums and gives you the power to <em>really</em> collect. From creating specific collections with a value tracker to posting in a community of your peers, CollectorsBoard has what you're looking for! 
+      </div>
+  </div>
+
+
+    </div>
+
+
+
+    
+
+
+      <div class="custom-class row mx-auto col-x col-md-8 col-lg-5 align-items-center w-75" style="width: 45%; margin-top: 3%; " >
+        <a href="/index" class="btn text-white bg-primary mt-3 mb-4 w-100">Get Started Today. All New Sign Ups Get Free Membership Options! (Until 3/1/24)</a>
+
+
+        <div class="card border-primary bg-dark me-4 mt-4 mb-4 text-white float-start" style="width: 34rem; height: 43rem;">
+            <div class="card-body">
+              <h5 class="card-title">Create Your Own Collections</h5>
+              <p class="card-text">Create collections to put your favorite items on display! Maybe you've got a Pokemon Deck, or maybe you've got this one set of coins you <em>looovve</em>. We want to see all you've got. Get started today!</em></p>
+              <img src="{{ url_for('static',filename='landingpage_1.png') }}" class="card-img-bottom" alt="...">
+              <a href="/index" class="btn text-white btn-primary mt-3 w-100">Start Now</a>
+            </div>
+          </div>
+
+          <div class="card border-success bg-dark me-4 mt-4 mb-4 text-white float-start" style="width: 34rem; height: 43rem">
+            <div class="card-body">
+              <h5 class="card-title">Join A Community Today</h5>
+              <p class="card-text">We know you love your stuff, and so will everyone else! Share your items and include all the details you want. Utilize the description tags too!</p>
+              <img src="{{ url_for('static',filename='landingpage_2.png') }}" class="card-img-bottom" alt="...">
+              <a href="/index" class="btn text-white bg-success mt-3 w-100">Join A Community</a>
+
+            </div>
+          </div>
+
+          <div class="card border-danger bg-dark me-4 mt-4 mb-4 text-white float-end" style="width: 34rem; height: 35rem">
+            <div class="card-body">
+              <h5 class="card-title">Get Updates From Your Followers, Communities & More!</h5>
+              <p class="card-text">Get updates when something you care happens. Maybe someone commented on your lovely piece, or someone followed you. Find out!</p>
+              <img src="{{ url_for('static',filename='landingpage_3.png') }}" class="card-img-bottom" alt="...">
+              <a href="/index" class="btn text-white bg-danger mt-3 w-100">Get Updates!</a>
+
+            </div>
+          </div>
+
+          <div class="card border-warning bg-dark me-4 mt-4 mb-4 text-white float-end" style="width: 34rem; height: 35rem">
+            <div class="card-body">
+              <h5 class="card-title">Search What You Love!</h5>
+              <p class="card-text">Do you want to see other items? Great! Search until you find something you care about. Search for communities, search for posts, search for collections. Search away!</p>
+              <img src="{{ url_for('static',filename='landingpage_4.png') }}" class="card-img-bottom" alt="...">
+              <a href="/index" class="btn text-white bg-warning mt-4 w-100">Find Stuff!</a>
+
+            </div>
+          </div>
+
+          <a href="/index" class="btn text-white bg-primary mt-3 mb-4 w-100">Get Started Today. All New Sign Ups Get Free Membership Options! (Until 3/1/24)</a>
+
+
+
+
+
+
+
+
+       
+    </div>
+
+
+
+</body>
+</html>

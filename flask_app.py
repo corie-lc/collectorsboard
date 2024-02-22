@@ -53,6 +53,9 @@ def hello():
 def about_info():
     return render_template("about_info.html")
 
+@app.route('/landingpage', methods=['POST', 'GET'])
+def landingpage():
+    return render_template("landingpage.html")
 
 @app.route('/privacypolicy', methods=['POST', 'GET'])
 def privacypolicy():
@@ -66,80 +69,86 @@ def membership():
 
 @app.route('/index', methods=['POST', 'GET'])
 def index():
-    if request.method == 'POST':
-        if 'logout-button' in request.form:
-            session.clear()
+    login_page = request.args.get("login_page")
 
-        elif "post_comment_button" in request.form:
-            post_id = request.form.get('post_comment_button')
-            comment = request.form.get('comment_input')
+    if login_page == "False":
+        return redirect(url_for("landingpage"))
+    else:
+    
+        if request.method == 'POST':
+            if 'logout-button' in request.form:
+                session.clear()
 
-            posts_entrys.add_comment(post_id, comment, session['username'])
+            elif "post_comment_button" in request.form:
+                post_id = request.form.get('post_comment_button')
+                comment = request.form.get('comment_input')
 
-            return redirect(url_for("index"))
+                posts_entrys.add_comment(post_id, comment, session['username'])
 
-        elif session.get('logged_in') == True:
-            return render_template('a.html')
+                return redirect(url_for("index"))
 
-        elif 'login-button' in request.form:
-            username = request.form.get('login-username')
-            password = request.form.get('login-password')
-
-            if accounts.login(username, password):
-                session["username"] = accounts.get_user_info(username)[0]
-                session["password"] = password
-                session['email'] = accounts.get_user_email(session['username'])
-                session["logged_in"] = True
-                session["collections"] = collections.get_user_collections(username)
-
+            elif session.get('logged_in') == True:
                 return render_template('a.html')
+
+            elif 'login-button' in request.form:
+                username = request.form.get('login-username')
+                password = request.form.get('login-password')
+
+                if accounts.login(username, password):
+                    session["username"] = accounts.get_user_info(username)[0]
+                    session["password"] = password
+                    session['email'] = accounts.get_user_email(session['username'])
+                    session["logged_in"] = True
+                    session["collections"] = collections.get_user_collections(username)
+
+                    return render_template('a.html')
+                else:
+
+                    session["logged_in"] = False
+                    return render_template('index.html')
+
+
+
+            elif 'signup-button' in request.form:
+                username = request.form.get("username")
+                password = request.form.get("password")
+                password2 = request.form.get("passwordTwo")
+                email = request.form.get("email")
+
+                if password != password2:
+                    session["logged_in"] = "match_fail"
+                    return render_template("index.html")
+
+                result = accounts.create_account(username, password, email)
+
+                if result == True:
+                    session["username"] = username
+                    session["password"] = password
+                    session['email'] = accounts.get_user_email(session['username'])
+                    accounts.add_to_membership(username, accounts.get_user_email(session['username']), "free")
+                    session["logged_in"] = True
+
+                    return render_template("a.html")
+                else:
+                    if result == "used_username":
+                        session["logged_in"] = "used_username"
+                        return render_template("index.html")
+
+                    elif result == "used_email":
+                        session["logged_in"] = "used_email"
+                        return render_template("index.html")
+
+                    elif result == "invalid":
+                        session["logged_in"] = "invalid"
+                        return render_template("index.html")
             else:
-
-                session["logged_in"] = False
-                return render_template('index.html')
-
-
-
-        elif 'signup-button' in request.form:
-            username = request.form.get("username")
-            password = request.form.get("password")
-            password2 = request.form.get("passwordTwo")
-            email = request.form.get("email")
-
-            if password != password2:
-                session["logged_in"] = "match_fail"
-                return render_template("index.html")
-
-            result = accounts.create_account(username, password, email)
-
-            if result == True:
-                session["username"] = username
-                session["password"] = password
-                session['email'] = accounts.get_user_email(session['username'])
-                accounts.add_to_membership(username, accounts.get_user_email(session['username']), "free")
-                session["logged_in"] = True
-
-                return render_template("a.html")
-            else:
-                if result == "used_username":
-                    session["logged_in"] = "used_username"
-                    return render_template("index.html")
-
-                elif result == "used_email":
-                    session["logged_in"] = "used_email"
-                    return render_template("index.html")
-
-                elif result == "invalid":
-                    session["logged_in"] = "invalid"
-                    return render_template("index.html")
+                if session.get('logged_in') == True:
+                    return render_template('a.html')
         else:
             if session.get('logged_in') == True:
                 return render_template('a.html')
-    else:
-        if session.get('logged_in') == True:
-            return render_template('a.html')
 
-    return render_template("index.html")
+        return render_template("index.html")
 
 
 @app.route('/community/<community_name>', methods=['POST', 'GET'])
