@@ -56,20 +56,85 @@
 
 <div class="card text-center bg-dark mx-auto w-75" style="width: 45%; margin-top: 3%; " >
 
-  <div class="card bg-danger text-white mb-3">
-    <div class="card-header">
-      This site is still in beta, but we would love your support! Reach out to be an official beta tester for free membership options!!!
-    </div>
-    <div class="card-body">
-      We are still in beta testing, but we would love your support. Feel free to reach out via our <a href="/about_info">support</a> form to request features, report a bug and just any comments in general. 
-      </div>
-  </div>
 
-
-
-          <a href="/landingpage" class="btn btn-success" >
-            What is CollectorsBoard?
-          </a>
+          <div class="card bg-dark text-white mb-3">
+            <div class="card-header bg-success">
+               A digital tool to manage, organize, value, expand and share your collection.
+            </div>
+            <div class="card-body">
+              CollectorsBoard gives you access to free tools to manage your collection in many ways. From personalized sharable links to current market value of any items you have! 
+              </div>
+        
+              <div class="card-footer">
+                <a href="/index" class="btn text-white bg-primary mt-3 mb-4 w-50">We are at <span class="text-danger text-decoration-underline">{{get_user_count()}}</span> users. Sign up now!</a>
+                <a onclick="document.getElementById('loginDiv').scrollIntoView();" class="btn text-white bg-success mt-3 mb-4 w-25">Already A User?</a>
+              </div>
+        
+              
+          </div>
+        
+        
+            </div>
+        
+        
+        
+            
+        
+        
+              <div class="custom-class row mx-auto col-x col-md-8 col-lg-5 align-items-center w-75" style="width: 45%; margin-top: 3%; " >
+                <a href="/index" class="btn text-white bg-primary mt-3 mb-4 w-100">Get Started Today. All New Sign Ups Get Free Membership Options! (Until 3/1/24)</a>
+        
+        
+                <div class="card border-primary bg-dark me-4 mt-4 mb-4 text-white float-start" style="width: 34rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Manage Your Collections</h5>
+                      <p class="card-text">Start managing your collection today. We offer many free tools to value, organize and expand your collections. You get a personalized link for each collection, as we think the world should see your collections, not just you! Organize your collections by catagory, value, date of creation, place of birth, ect.</p>
+                      <img src="{{ url_for('static',filename='landingpage_1.png') }}" class="card-img-bottom" alt="...">
+                      <a href="/index" class="btn text-white btn-primary mt-4 mb-4 w-100">Start Now</a>
+                    </div>
+                  </div>
+        
+                  <div class="card border-success bg-dark me-4 mt-4 mb-4 text-white float-start" style="width: 34rem; ">
+                    <div class="card-body">
+                      <h5 class="card-title">Join A Community Today</h5>
+                      <p class="card-text">We know you love your stuff, and so will everyone else! Share your items and include all the details you want. Utilize the description tags too!</p>
+                      <img src="{{ url_for('static',filename='landingpage_2.png') }}" class="card-img-bottom" alt="...">
+                      <a href="/index" class="btn text-white bg-success mt-3 w-100">Join A Community</a>
+        
+                    </div>
+                  </div>
+        
+                  <div class="card border-danger bg-dark me-4 mt-4 mb-4 text-white float-end" style="width: 34rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Get Updates From Your Followers, Communities & More!</h5>
+                      <p class="card-text">Get updates when something you care happens. Maybe someone commented on your lovely piece, or someone followed you. Find out!</p>
+                      <img src="{{ url_for('static',filename='landingpage_3.png') }}" class="card-img-bottom" alt="...">
+                      <a href="/index" class="btn text-white bg-danger mt-3 w-100">Get Updates!</a>
+        
+                    </div>
+                  </div>
+        
+                  <div class="card border-warning bg-dark me-4 mt-4 mb-4 text-white float-end" style="width: 34rem;">
+                    <div class="card-body">
+                      <h5 class="card-title">Search What You Love!</h5>
+                      <p class="card-text">Do you want to see other stuff? Great! Search until you find something you care about. Search for communities, search for posts, search for collections. Search away!</p>
+                      <img src="{{ url_for('static',filename='landingpage_4.png') }}" class="card-img-bottom" alt="...">
+                      <a href="/index" class="btn text-white bg-warning mt-4 w-100">Find Stuff!</a>
+        
+                    </div>
+                  </div>
+        
+                  <a href="/index" class="btn text-white bg-primary mt-3 mb-4 w-100">Get Started Today. All New Sign Ups Get Free Membership Options! (Until 3/1/24)</a>
+        
+        
+        
+        
+        
+        
+        
+        
+               
+            </div>
         
     
 
@@ -84,7 +149,7 @@
 
 
 
-        <div class="card-header bg-dark text-white" style="background-color: darkgray;">
+        <div id="loginDiv" class="card-header bg-dark text-white" style="background-color: darkgray;">
           Sign In
         </div>
 

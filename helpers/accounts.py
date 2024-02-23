@@ -118,7 +118,7 @@ def create_account(username, password, email):
         return "used_username"
     elif does_email_exist(email) == True:
         return "used_email"
-    elif "@" or '@' or "()" or "+" or "=" or "*" or "&" or "^" or ">" or "<" or "%" or "$" or "#" or "!" or "[" or "]" or "," or "/" or "," or "." or "?" or "|" or "'" or '"' in username:
+    elif "@" in username:
         return "invalid"
     else:
 
