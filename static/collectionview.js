@@ -145,7 +145,7 @@ function editCollection(collectionId){
             
             });;
 
-            document.getElementById("header").innerHTML = newName
+            document.getElementById("collection_name_text").innerHTML = newName
             document.getElementById("info").innerHTML = newDesc
             document.getElementById("value_id").innerHTML = "$" + valueDesc
             document.getElementById("community_id").innerHTML = $('.js-example-basic-single').val()  
