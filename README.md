@@ -1,5 +1,4 @@
 # A website tailored towards collectors.
-    https://collectorsboard.live/landingpage
     Started working on this as a project to develop my Python, Javascript and database knowledge but I found I liked the concept and would like to launch.
 
   # Roadmap
@@ -19,5 +18,6 @@
 
   # Please reach out if you are interested in the project
       
+https://collectorsboard.live/landingpage
 
 https://github.com/corie-lc/cb-enterprise -  the controller for admins of collectorsboard.live
