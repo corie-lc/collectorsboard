@@ -18,7 +18,6 @@
       - more to come
 
   # Please reach out if you are interested in the project
-      - im painfully aware its not pretty code or super effiecent code idk whats going on
       
 
 https://github.com/corie-lc/cb-enterprise -  the controller for admins of collectorsboard.live
