@@ -1827,7 +1827,7 @@
 
     <br>
 
-    <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary mt-2">View</a>
+    <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary mt-4">View</a>
 
       {% if is_collection_saved(session['username'], collection[1]) %}
           <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-primary">Save</button>
