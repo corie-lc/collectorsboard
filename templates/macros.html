@@ -1830,13 +1830,13 @@
     <a href="/collectionview/{{collection[1]}}" class="card-link btn btn-primary mt-4">View</a>
 
       {% if is_collection_saved(session['username'], collection[1]) %}
-          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-primary">Save</button>
+          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-primary mt-4">Save</button>
       {% else %}
-          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="unsaved" type="button" class="card-link btn btn-dark">Save</button>
+          <button typeof="button" onclick='ajaxSaveCollection( "{{collection[1]}}", "{{ username }}", "{{ post_type }}")' id="{{ save_collection }}" value="unsaved" type="button" class="card-link btn btn-dark mt-4">Save</button>
       {% endif %}
 
         {% if collection[3] == session['username'] %}
-            <button typeof="button" onclick='ajaxDeleteCollection( "{{collection[1]}}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-danger">Delete</button>
+            <button typeof="button" onclick='ajaxDeleteCollection( "{{collection[1]}}", "{{ post_type }}")' id="{{ save_collection }}" value="saved" type="button" class="card-link btn btn-danger mt-4">Delete</button>
         {% endif %}
 
   </div>
