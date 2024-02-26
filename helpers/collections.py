@@ -39,7 +39,7 @@ def get_collection_posts_full(collection_id):
     list_posts = []
 
     for item in posts:
-        list_posts.append(posts_entrys.get_post_by_id(item))
+        list_posts.append(posts_entrys.get_post_by_id(item[0]))
 
     print(list_posts)
 
