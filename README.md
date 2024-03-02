@@ -21,3 +21,5 @@
 https://collectorsboard.live/landingpage
 
 https://github.com/corie-lc/cb-enterprise -  the controller for admins of collectorsboard.live
+
+https://github.com/corie-lc/collectorsboard-news-robot - the program responsible for creating news posts
