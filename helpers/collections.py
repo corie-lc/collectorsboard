@@ -229,6 +229,7 @@ def get_all_collections():
     for item in cursor:
         collections.append(item)
 
+    cursor.close()
     return collections
 
 
@@ -240,6 +241,7 @@ def get_feed_collections(username):
         if username != item[3] and accounts.is_account_public(item[3]) == True:
             collections.append(item)
 
+    
     return collections
 
 

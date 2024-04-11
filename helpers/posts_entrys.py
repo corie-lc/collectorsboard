@@ -240,6 +240,7 @@ def get_top_posts(username, start_at=-1):
                 
     all = posts
 
+    cursor.close()
     return all
 
 def get_new_posts(username):
@@ -307,7 +308,7 @@ def get_feed_posts(username, start_at = -1):
 
 
 
-
+    cursor.close()
     return posts
 
 
@@ -731,5 +732,6 @@ def get_related_community_posts(username, start_at = -1):
         for item in related_communties:
             posts_to_send = posts_to_send + get_community_post(item, username)
 
+    cursor.close()
     return posts_to_send
 

@@ -32,13 +32,8 @@ function scrolling(handle, obId){
 
     function buildThresholdList() {
         let thresholds = [];
-        let numSteps = 0.5;
-         for (let i = 0.5; i <= numSteps; i++) {
-            let ratio = i / numSteps;
-            thresholds.push(ratio);
-        }
-
-        thresholds.push(0);
+         
+        thresholds.push(1.0);
         return thresholds;
     }
 }
