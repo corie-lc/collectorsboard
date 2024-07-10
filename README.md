@@ -1,3 +1,5 @@
+# Sadly, this project has be discontinued. The links will no longer work. :(
+
 # A website tailored towards collectors.
     Started working on this as a project to develop my Python, Javascript and database knowledge but I found I liked the concept and would like to launch.
 
